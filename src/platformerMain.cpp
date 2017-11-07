@@ -1,8 +1,11 @@
 /*
-Getting a window on the screen quick and dirty like.
-All of this will be wrapped up in appropriate classes.
-Compile on linux with 'make'
+Minimal code to get an SFML window on the screen
+with an opengl context
 */
+
+#include "platformerConfig.hpp"
+
+#include <iostream>
 
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
@@ -10,7 +13,12 @@ Compile on linux with 'make'
 //#include <SFML/Audio>
 
 int main() {
-	// init window for an opengl context
+	std::cout << "App Version: " <<
+		Platformer_VERSION_MAJOR << "." <<
+		Platformer_VERSION_MINOR << "." <<
+		Platformer_VERSION_REVISION << std::endl;
+
+	// settings for an opengl context
 	sf::ContextSettings settings;
 	settings.depthBits = 24;
 	//settings.stencilBits = 8;
@@ -18,13 +26,14 @@ int main() {
 	settings.majorVersion = 3;
 	settings.minorVersion = 3;	// OpenGL version 3.3 which has the modern programable pipeline
 
+	// create the window
 	sf::Window window(sf::VideoMode(800, 600), "Test Window", sf::Style::Default, settings);
 	window.setVerticalSyncEnabled(true);
 	window.setActive(true);
 
 	// init opengl states
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f); // grey
+	glClearColor(0.1f, 0.1f, 0.3f, 1.0f); // blue-grey
 
 	// main loop
 	bool running = true;
@@ -36,21 +45,21 @@ int main() {
 			if(event.type == sf::Event::Closed) {
 				running = false;
 			} else if(event.type == sf::Event::Resized) {
-				glViewport(0, 0, event.size.width, event.size.height);
+				glViewport(0, 0, static_cast<int>(event.size.width), static_cast<int>(event.size.height));
 			}
 			// else if keyboard and mouse events
 		}
 
-	/*
+/*
 		if(!runningCommand) {
 			// get command from user
 		} else {
 			// update game logic
 			// update physics logic
 		}
-	*/
+*/
 
-		// clear buffers
+		// clear OpenGL buffers
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// draw

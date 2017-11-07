@@ -1,0 +1,8 @@
+#ifndef PLATFORMER_CONFIG_H_P_P
+#define PLATFORMER_CONFIG_H_P_P
+
+#define Platformer_VERSION_MAJOR @Platformer_VERSION_MAJOR@
+#define Platformer_VERSION_MINOR @Platformer_VERSION_MINOR@
+#define Platformer_VERSION_REVISION @Platformer_VERSION_REVISION@
+
+#endif
