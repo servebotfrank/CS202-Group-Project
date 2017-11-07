@@ -1,3 +1,6 @@
+# Gotten From
+# https://github.com/SFML/SFML/tree/master/cmake/Modules
+#
 # This script locates the SFML library
 # ------------------------------------
 #
