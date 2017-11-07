@@ -36,36 +36,29 @@ int main() {
 	glClearColor(0.1f, 0.1f, 0.3f, 1.0f); // blue-grey
 
 	// main loop
+	sf::Clock clock;
 	bool running = true;
 	while(running) {
+		sf::Time elapsed = clock.restart();
 
 		// process events
 		sf::Event event;
 		while(window.pollEvent(event)) {
-			if(event.type == sf::Event::Closed) {
-				running = false;
-			} else if(event.type == sf::Event::Resized) {
-				glViewport(0, 0, static_cast<int>(event.size.width), static_cast<int>(event.size.height));
+			switch(event.type) {
+				case sf::Event::Closed:
+					running = false;
+					continue;
+					break;
+				case sf::Event::Resized:
+					glViewport(0, 0, static_cast<int>(event.size.width), static_cast<int>(event.size.height));
+					break;
+				default:
+					break;
 			}
-			// else if keyboard and mouse events
 		}
-
-/*
-		if(!runningCommand) {
-			// get command from user
-		} else {
-			// update game logic
-			// update physics logic
-		}
-*/
 
 		// clear OpenGL buffers
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// draw
-		//auto v = getGameObjects();
-		//for(auto s:v)
-			//s->draw();
 
 		// swap frame buffers
 		window.display();
