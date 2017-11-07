@@ -20,7 +20,7 @@ __Authors__
 
 * SFML 2
 * OpenGL
-* cmake
+* CMake
 ---
 ### Linux(ubuntu)
 
