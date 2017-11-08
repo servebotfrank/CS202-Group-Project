@@ -1,8 +1,13 @@
 #ifndef PLATFORMER_CONFIG_H_P_P
 #define PLATFORMER_CONFIG_H_P_P
 
+#define EXECUTABLE_NAME @EXECUTABLE_NAME@
+
 #define Platformer_VERSION_MAJOR @Platformer_VERSION_MAJOR@
 #define Platformer_VERSION_MINOR @Platformer_VERSION_MINOR@
 #define Platformer_VERSION_REVISION @Platformer_VERSION_REVISION@
+
+#define Platformer_OPENGL_MAJOR @Platformer_OPENGL_MAJOR@
+#define Platformer_OPENGL_MINOR @Platformer_OPENGL_MINOR@
 
 #endif
