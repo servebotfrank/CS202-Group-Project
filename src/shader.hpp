@@ -7,7 +7,11 @@
 #include <fstream>
 #include <sstream>
 
+#ifdef __APPLE__
+#include <OpenGL/glew.h>
+#else
 #include <GL/glew.h>
+#endif
 
 #include <SFML/System.hpp>
 #include <SFML/OpenGL.hpp>
