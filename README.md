@@ -22,9 +22,8 @@ __Authors__
 
 * SFML 2 (Simple Fast Multipmedia Library)
 * OpenGL (Open Graphics Library)
-__NEW__
-* GLEW   (OpenGL Extension Wrangler Library)
-* GLM    (OpenGL Mathmatics)
+* GLEW   (OpenGL Extension Wrangler Library)__NEW__
+* GLM    (OpenGL Mathmatics)__NEW__
 
 ---
 ### Linux(ubuntu)
