@@ -54,8 +54,9 @@ add_executable(${EXECUTABLE_NAME}
 		${PROJECT_SOURCE_DIR}/platformerMain.cpp
 )
 
-# Link SFML 2
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+# Link SFML 2
 find_package(SFML 2 REQUIRED COMPONENTS system window audio)
 if (SFML_FOUND)
 	include_directories(${SFML_INCLUDE_DIR})
@@ -90,9 +91,10 @@ if (GLEW_FOUND)
 endif()
 
 # Link GLM
-#find_package(GLM)
+find_package(GLM)
 if (GLM_FOUND)
 	message("-- Found GLM")
+	include_directories(${GLM_INCLUDE_DIRS})
 endif()
 
 # Link our files depending on their dependencies
