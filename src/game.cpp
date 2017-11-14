@@ -38,7 +38,6 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 	const std::string PATH_TO_MODEL = "../res/models/monkey.obj";
 	const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
 	const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
-
 	gameObjects_.push_back(std::make_unique<Platform>(PATH_TO_MODEL, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
 }
 

@@ -23,6 +23,10 @@ size_t GameObject::getIndexCount() const {
 glm::mat4 GameObject::getModelTransform() const {
 	return modelTransform_;
 }
+glm::vec3 GameObject::getPosition() const {
+	return glm::vec3(modelTransform_[3][0], modelTransform_[3][1], modelTransform_[3][2]);
+}
+
 void GameObject::setUniformMat4(const std::string &name, const glm::mat4 &mat4) const {
 	shader_->setUniformMat4(name, mat4);
 }
@@ -32,6 +36,7 @@ void* GameObject::getIndiciesData() const {
 void GameObject::setModelTransform(const glm::mat4 &transform) {
 	modelTransform_ = transform;
 }
+
 
 
 Platform::Platform(

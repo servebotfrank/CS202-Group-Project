@@ -5,7 +5,11 @@
 #include <memory>
 #include <string>
 
+#ifdef __APPLE__
+#include <OpenGL/glew.h>
+#else
 #include <GL/glew.h>
+#endif
 
 #include <SFML/System.hpp>
 #include <SFML/OpenGL.hpp>
@@ -35,20 +39,14 @@ public:
 	glm::mat4 getModelTransform() const;
 	void setUniformMat4(const std::string &name, const glm::mat4 &mat4) const;
 	void setModelTransform(const glm::mat4 &transform);
+
+	// gets the center of the mesh, the first three elements in the last colume
+	// of the modelTransform matrix
+	glm::vec3 getPosition() const;
 private:
 	std::unique_ptr<Mesh> mesh_;
 	std::unique_ptr<Shader> shader_;
 	glm::mat4 modelTransform_;
-};
-
-class Light {
-public:
-	Light(glm::vec3 position, float intesity, glm::vec3 color);
-	void update();
-private:
-	glm::vec3 position_;
-	float intensity_;
-	glm::vec3 color_;
 };
 
 class Platform : public GameObject {
