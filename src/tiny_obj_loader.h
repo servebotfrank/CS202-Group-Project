@@ -312,7 +312,7 @@ class MaterialStreamReader : public MaterialReader {
 /// directory.
 /// 'triangulate' is optional, and used whether triangulate polygon face in .obj
 /// or not.
-bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
+inline bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
              std::vector<material_t> *materials, std::string *err,
              const char *filename, const char *mtl_basedir = NULL,
              bool triangulate = true);
@@ -323,7 +323,7 @@ bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
 /// Returns true when loading .obj/.mtl become success.
 /// Returns warning and error message into `err`
 /// See `examples/callback_api/` for how to use this function.
-bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
+inline bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
                          void *user_data = NULL,
                          MaterialReader *readMatFn = NULL,
                          std::string *err = NULL);
@@ -332,13 +332,13 @@ bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
 /// std::istream for materials.
 /// Returns true when loading .obj become success.
 /// Returns warning and error message into `err`
-bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
+inline bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
              std::vector<material_t> *materials, std::string *err,
              std::istream *inStream, MaterialReader *readMatFn = NULL,
              bool triangulate = true);
 
 /// Loads materials into std::map
-void LoadMtl(std::map<std::string, int> *material_map,
+inline void LoadMtl(std::map<std::string, int> *material_map,
              std::vector<material_t> *materials, std::istream *inStream,
              std::string *warning);
 
@@ -360,7 +360,7 @@ void LoadMtl(std::map<std::string, int> *material_map,
 
 namespace tinyobj {
 
-MaterialReader::~MaterialReader() {}
+inline MaterialReader::~MaterialReader() {}
 
 struct vertex_index {
   int v_idx, vt_idx, vn_idx;
@@ -1427,7 +1427,7 @@ void LoadMtl(std::map<std::string, int> *material_map,
   }
 }
 
-bool MaterialFileReader::operator()(const std::string &matId,
+inline bool MaterialFileReader::operator()(const std::string &matId,
                                     std::vector<material_t> *materials,
                                     std::map<std::string, int> *matMap,
                                     std::string *err) {
@@ -1461,7 +1461,7 @@ bool MaterialFileReader::operator()(const std::string &matId,
   return true;
 }
 
-bool MaterialStreamReader::operator()(const std::string &matId,
+inline bool MaterialStreamReader::operator()(const std::string &matId,
                                       std::vector<material_t> *materials,
                                       std::map<std::string, int> *matMap,
                                       std::string *err) {
@@ -1816,7 +1816,7 @@ bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
   return true;
 }
 
-bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
+inline bool LoadObjWithCallback(std::istream &inStream, const callback_t &callback,
                          void *user_data /*= NULL*/,
                          MaterialReader *readMatFn /*= NULL*/,
                          std::string *err /*= NULL*/) {

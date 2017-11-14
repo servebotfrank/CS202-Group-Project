@@ -18,15 +18,20 @@ __Authors__
 ---
 ## Dependecies
 
-* SFML 2
-* OpenGL
-* CMake
+* CMAKE
+
+* SFML 2 (Simple Fast Multipmedia Library)
+* OpenGL (Open Graphics Library)
+__NEW__
+* GLEW   (OpenGL Extension Wrangler Library)
+* GLM    (OpenGL Mathmatics)
+
 ---
 ### Linux(ubuntu)
 
 Install Dependencies
 
->sudo apt install libsfml-dev mesa-common-dev cmake
+>sudo apt install cmake libsfml-dev mesa-common-dev libglew-dev libglm-dev
 
 Change your working directory to CS202-Group-Project then
 
@@ -38,13 +43,13 @@ Change your working directory to CS202-Group-Project then
 
 >make
 
->cd ../bin
-
 now run the program
 
 >./platformer
 
 ---
 ### Windows
+
 ---
 ### Mac
+
