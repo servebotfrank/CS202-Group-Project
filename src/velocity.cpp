@@ -8,7 +8,7 @@ void Velocity::setXDirection(double xDirection)
 	squareUpTotalDirection();
 }
 
-double Velocity::getXDirection()
+double Velocity::getXDirection() const
 {
 	return _xDirection;
 }
@@ -17,17 +17,17 @@ void Velocity::setYDirection(double yDirection)
 	_yDirection=yDirection;
 	squareUpTotalDirection();
 }
-double Velocity::getYDirection()
+double Velocity::getYDirection() const
 {
 	return _yDirection;
 }
 
-double Velocity::getTotalDirection()
+double Velocity::getTotalDirection() const
 {
 	return _total;
 }
 
-double Velocity::getAngle()
+double Velocity::getAngle()const
 {
 	return _angle;
 }

@@ -8,11 +8,11 @@ private:
 	//need some way to handle direction
 public:
 	void setXDirection(double xDirection);
-	double getXDirection();
+	double getXDirection()const;
 	void setYDirection(double yDirection);
-	double getYDirection();
-	double getTotalDirection();
-	double getAngle();
+	double getYDirection()const;
+	double getTotalDirection()const;
+	double getAngle()const;
 	void squareUpTotalDirection();
 
 };
