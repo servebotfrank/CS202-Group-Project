@@ -12,6 +12,7 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 							sf::Style::Default, contextSettings_ },
 			   running_{false},
 			   gameObjects_(0),
+			   objectFactory_{},
 			   fov_{90}, projection_{getProjection()},
 			   camera_{glm::vec3(0.0f,0.0f,5.0f)} {
 	// print versions
@@ -38,7 +39,10 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 	const std::string PATH_TO_MODEL = "../res/models/monkey.obj";
 	const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
 	const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
-	gameObjects_.push_back(std::make_unique<Platform>(PATH_TO_MODEL, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
+
+	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_MODEL, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
+	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_MODEL, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
+	gameObjects_[1]->translate(glm::vec3(-3.0f, 0, 0));
 }
 
 void Game::run() {

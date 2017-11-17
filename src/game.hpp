@@ -4,6 +4,7 @@
 #include "platformerConfig.hpp"
 #include "gameObjects.hpp"
 #include "camera.hpp"
+#include "gameObjectFactory.hpp"
 
 #include <string>
 #include <iostream>
@@ -39,6 +40,7 @@ private:
 	sf::Window window_;
 	bool running_;
 	std::vector<std::unique_ptr<GameObject>> gameObjects_;
+	GameObjectFactory objectFactory_;
 
 	float fov_;
 	glm::mat4 projection_;
