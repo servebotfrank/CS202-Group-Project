@@ -1,11 +1,10 @@
 #include "mesh.hpp"
 
 Mesh::Mesh(const std::string &pathToObj)
-: vertices(0), indices(0), VAO{0}, VBO{0}, EBO{0} {
+: pathToModel_{pathToObj}, vertices(0), indices(0), VAO{0}, VBO{0}, EBO{0} {
 	loadMesh(pathToObj);
 	loadToGLBuffers();
 }
-
 Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
@@ -38,7 +37,7 @@ void Mesh::loadMesh(const std::string &pathToObj) {
 
 			// add only add unique verticies
 			if(uniqueVertices.count(vertex) == 0) {
-				uniqueVertices[vertex] = vertices.size();
+				uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
 				vertices.push_back(vertex);
 			}
 
@@ -65,7 +64,7 @@ void Mesh::loadToGLBuffers() {
 
 	// set attirbute 0 to be the vertex position
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), static_cast<void*>(0));
 
 	// unbind buffer
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -82,6 +81,11 @@ size_t Mesh::getVertexCount() const {
 size_t Mesh::getIndexCount() const {
 	return indices.size();
 }
-
+const void* Mesh::getIndicesData() const {
+	return indices.data();
+}
+std::string Mesh::getPathToModel() const {
+	return pathToModel_;
+}
 
 

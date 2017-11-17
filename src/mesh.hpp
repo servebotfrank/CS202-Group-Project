@@ -16,6 +16,7 @@
 #include <SFML/System.hpp>
 #include <SFML/OpenGL.hpp>
 
+// while using clang - error "GLM_GTX_hash requires C++11 standard librar...
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/hash.hpp>
@@ -39,7 +40,8 @@ namespace std {
 	};
 }
 
-struct Mesh {
+class Mesh {
+public:
 	Mesh(const std::string &pathToObj);
 	~Mesh();
 
@@ -49,6 +51,11 @@ struct Mesh {
 	unsigned int getVAO() const;
 	size_t getVertexCount() const;
 	size_t getIndexCount() const;
+	const void* getIndicesData() const;
+
+	std::string getPathToModel() const;
+private:
+	std::string pathToModel_;
 
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
