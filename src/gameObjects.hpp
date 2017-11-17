@@ -4,6 +4,7 @@
 #include <cmath>
 #include <memory>
 #include <string>
+#include <algorithm>
 
 #ifdef __APPLE__
 #include <OpenGL/glew.h>
@@ -22,10 +23,14 @@
 
 class GameObject {
 public:
+	GameObject (
+		std::shared_ptr<Mesh> mesh,
+		std::shared_ptr<Shader> shader);
 	GameObject(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource);
+
 	virtual ~GameObject() {}
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const = 0;
@@ -35,22 +40,24 @@ public:
 	unsigned int getVAO() const;
 	size_t getVertexCount() const;
 	size_t getIndexCount() const;
-	void* getIndiciesData() const;
+	const void* getIndiciesData() const;
 	glm::mat4 getModelTransform() const;
 	void setUniformMat4(const std::string &name, const glm::mat4 &mat4) const;
 	void setModelTransform(const glm::mat4 &transform);
 
-	// gets the center of the mesh, the first three elements in the last colume
-	// of the modelTransform matrix
 	glm::vec3 getPosition() const;
+	void translate(const glm::vec3 &difference);
 private:
-	std::unique_ptr<Mesh> mesh_;
-	std::unique_ptr<Shader> shader_;
+	std::shared_ptr<Mesh> mesh_;
+	std::shared_ptr<Shader> shader_;
 	glm::mat4 modelTransform_;
 };
 
 class Platform : public GameObject {
 public:
+	Platform(
+		std::shared_ptr<Mesh> mesh,
+		std::shared_ptr<Shader> shader);
 	Platform(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
@@ -62,8 +69,5 @@ private:
 
 };
 
-enum class GameObjectTypes { PLATFORM };
-
-std::unique_ptr<GameObject> gameObjectFactory(GameObjectTypes type);
 
 #endif

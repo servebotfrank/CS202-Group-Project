@@ -1,13 +1,20 @@
 #include "gameObjects.hpp"
 
 GameObject::GameObject(
+	std::shared_ptr<Mesh> mesh,
+	std::shared_ptr<Shader> shader) :
+	mesh_(mesh),
+	shader_(shader),
+	modelTransform_{} {}
+
+GameObject::GameObject(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
-	const std::string &pathToFragSource) : modelTransform_{} {
+	const std::string &pathToFragSource) :
+	mesh_{std::make_shared<Mesh>(pathToObj)},
+	shader_{std::make_shared<Shader>(pathToVertSource, pathToFragSource)},
+	modelTransform_{} {}
 
-	mesh_ = std::make_unique<Mesh>(pathToObj);
-	shader_ = std::make_unique<Shader>(pathToVertSource, pathToFragSource);
-}
 unsigned int GameObject::getShaderProgram() const {
 	return shader_->getShaderProgram();
 }
@@ -30,24 +37,29 @@ glm::vec3 GameObject::getPosition() const {
 void GameObject::setUniformMat4(const std::string &name, const glm::mat4 &mat4) const {
 	shader_->setUniformMat4(name, mat4);
 }
-void* GameObject::getIndiciesData() const {
-	return mesh_->indices.data();
+const void* GameObject::getIndiciesData() const {
+	return mesh_->getIndicesData();
 }
 void GameObject::setModelTransform(const glm::mat4 &transform) {
 	modelTransform_ = transform;
 }
-
-
+void GameObject::translate(const glm::vec3 &difference) {
+	modelTransform_ = glm::translate(modelTransform_, difference);
+}
+Platform::Platform(
+	std::shared_ptr<Mesh> mesh,
+	std::shared_ptr<Shader> shader )
+	: GameObject(mesh, shader) {}
 
 Platform::Platform(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
 	const std::string &pathToFragSource)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource} {
+	: GameObject{pathToObj, pathToVertSource, pathToFragSource} {}
 
-}
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glUseProgram(getShaderProgram());
+
 	setUniformMat4("projection", perspective);
 	setUniformMat4("view", view);
 	setUniformMat4("model", getModelTransform());
