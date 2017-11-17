@@ -8,6 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}-Wall -Wextra -pedantic-errors -O3")
+#	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}-Weffc++)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}-Weverything -Wno-c++98-compat -Wno-padded -Wno-covered-switch-default")
 else()
@@ -44,10 +45,11 @@ configure_file (
 )
 
 # Add our objects to cmake
-add_library(camera STATIC ${PROJECT_SOURCE_DIR}/camera.cpp)
 add_library(mesh STATIC ${PROJECT_SOURCE_DIR}/mesh.cpp)
 add_library(shader STATIC ${PROJECT_SOURCE_DIR}/shader.cpp)
 add_library(gameObjects STATIC ${PROJECT_SOURCE_DIR}/gameObjects.cpp)
+add_library(gameObjectFactory ${PROJECT_SOURCE_DIR}/gameObjectFactory.cpp)
+add_library(camera STATIC ${PROJECT_SOURCE_DIR}/camera.cpp)
 add_library(game STATIC ${PROJECT_SOURCE_DIR}/game.cpp)
 
 add_executable(${EXECUTABLE_NAME}
@@ -100,8 +102,15 @@ endif()
 # Link our files depending on their dependencies
 target_link_libraries(gameObjects mesh)
 target_link_libraries(gameObjects shader)
+
+target_link_libraries(gameObjectFactory mesh)
+target_link_libraries(gameObjectFactory shader)
+target_link_libraries(gameObjectFactory gameObjects)
+
+target_link_libraries(game gameObjectFactory)
 target_link_libraries(game gameObjects)
 target_link_libraries(game camera)
+
 target_link_libraries(${EXECUTABLE_NAME} game)
 
 
