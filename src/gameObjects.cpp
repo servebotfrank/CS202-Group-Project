@@ -57,6 +57,7 @@ Platform::Platform(
 	const std::string &pathToFragSource)
 	: GameObject{pathToObj, pathToVertSource, pathToFragSource} {}
 
+
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glUseProgram(getShaderProgram());
 
@@ -71,3 +72,27 @@ void Platform::updatePhysics() {
 	setModelTransform( glm::rotate(getModelTransform(), (float)std::exp(-6), glm::vec3(0.0f, 1.0f, 0.0f)) );
 }
 
+Player::Player(
+	std::shared_ptr<Mesh> mesh,
+	std::shared_ptr<Shader> shader )
+	: GameObject(mesh, shader) {}
+
+Player::Player(
+	const std::string &pathToObj,
+	const std::string &pathToVertSource,
+	const std::string &pathToFragSource)
+	: GameObject{pathToObj, pathToVertSource, pathToFragSource} {}
+
+	
+void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
+	glUseProgram(getShaderProgram());
+
+	setUniformMat4("projection", perspective);
+	setUniformMat4("view", view);
+	setUniformMat4("model", getModelTransform());
+
+	glBindVertexArray(getVAO());
+	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
+}
+void Player::updatePhysics() {
+}

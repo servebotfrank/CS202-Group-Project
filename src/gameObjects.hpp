@@ -63,10 +63,25 @@ public:
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource);
 
+
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
 private:
 
+};
+
+class Player : public GameObject {
+public:
+	Player(
+		std::shared_ptr<Mesh> mesh,
+		std::shared_ptr<Shader> shader);
+	Player(
+		const std::string &pathToObj,
+		const std::string &pathToVertSource,
+		const std::string &pathToFragSource);
+
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
+	virtual void updatePhysics() override;
 };
 
 
