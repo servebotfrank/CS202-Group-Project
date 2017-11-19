@@ -18,7 +18,7 @@ void Shader::use() const {
 void Shader::setUniformBool(const std::string &name, bool val) const {
 	glUniform1i(glGetUniformLocation(shaderProgram_, name.c_str()), static_cast<int>(val)); 
 }
-void Shader::setUniformInt(const std::string &name, int32_t val) const {
+void Shader::setUniformInt32(const std::string &name, int32_t val) const {
 	glUniform1i(glGetUniformLocation(shaderProgram_, name.c_str()), val); 
 }
 void Shader::setUniformFloat(const std::string &name, float val) const {
