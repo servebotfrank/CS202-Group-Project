@@ -1,4 +1,9 @@
-//mass, velocity, position, dimensions
+//mass, velocity, position
+#ifndef DYNAMIC_OBJECT_HPP
+#define DYNAMIC_OBJECT_HPP
+#include <iostream>
+#include <vector>
+#include "velocity.cpp"
 
 class Dynamic_object
 {
@@ -13,6 +18,7 @@ public:
 	double getMass()const;
 	double incrementPosition();
 	void fixMomentum();
+	Dynamic_object(std::ostream & os, std::vector<double> & vec);
+};
 
-	
-}
+#endif
