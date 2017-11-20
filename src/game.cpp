@@ -14,26 +14,16 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 			   gameObjects_(0),
 			   objectFactory_{},
 			   fov_{90}, projection_{getProjection()},
-			   camera_{glm::vec3(0.0f,0.0f,5.0f)} {
+			   camera_{glm::vec3(0.0f,0.0f,5.0f)},
+			   framerateLimit_{30} {
 	// print versions
 	std::cout << "Application Version: " << getVersionString() << std::endl;
 	std::cout << "SFML Version: " << SFML_VERSION_MAJOR << "." << SFML_VERSION_MINOR << "." << SFML_VERSION_PATCH << std::endl;
 	std::cout << "GLEW Version: " << GLEW_VERSION_MAJOR << "." << GLEW_VERSION_MINOR << "." << GLEW_VERSION_MICRO << std::endl;
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
-	// Finish initailizing sfml
-	contextSettings_ = window_.getSettings();
-//	window_.setIcon();
-	window_.setVerticalSyncEnabled(true);
-	window_.setActive();
-
-	// initialize opengl states
-	glewExperimental = GL_TRUE; 
-	glewInit();
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	initSFMLStates();
+	initOpenGLStates();
 
 	// temporary
 	const std::string PATH_TO_PLAYER = "../res/models/playerTemp.obj";
@@ -44,9 +34,24 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 	const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
 
 	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_BACKGROUND, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
-	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_PLAYER_VERT_SOURCE, PATH_TO_PLAYER_FRAG_SOURCE));
+	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
 	gameObjects_[1]->translate(glm::vec3(-3.0f, -2.5f, 0));
 	gameObjects_[0]->translate(glm::vec3(0,0, -10.0f));
+}
+void Game::initSFMLStates() {
+	contextSettings_ = window_.getSettings();
+//	window_.setIcon();
+//	window_.setVerticalSyncEnabled(true);
+	window_.setFramerateLimit(framerateLimit_);
+	window_.setActive();
+}
+void Game::initOpenGLStates() const {
+	glewExperimental = GL_TRUE; 
+	glewInit();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 }
 
 void Game::run() {
@@ -63,6 +68,15 @@ void Game::run() {
 
 glm::mat4 Game::getProjection() const {
 	return glm::perspective(glm::radians(fov_), (float)window_.getSize().x / (float)window_.getSize().y, 0.1f, 100.0f);
+}
+
+uint16_t Game::getFramerateLimit() const {
+	return framerateLimit_;
+}
+
+void Game::setFramerateLimit(uint16_t framerateLimit) {
+	framerateLimit_ = framerateLimit;
+	window_.setFramerateLimit(framerateLimit_);
 }
 
 std::string Game::getVersionString() const {

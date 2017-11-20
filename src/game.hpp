@@ -29,8 +29,11 @@ public:
 	Game(std::string title);
 
 	void run();
+
 	std::string getVersionString() const;
 	glm::mat4 getProjection() const;
+	uint16_t getFramerateLimit() const;
+	void setFramerateLimit(uint16_t framerateLimit);
 private:
 	uint64_t versionMajor_;
 	uint64_t versionMinor_;
@@ -45,6 +48,11 @@ private:
 	float fov_;
 	glm::mat4 projection_;
 	Camera camera_;
+
+	uint16_t framerateLimit_;
+
+	void initSFMLStates();
+	void initOpenGLStates() const;
 
 	void processEvents();
 	void update();
