@@ -16,8 +16,17 @@ double Dynamic_object::incrementPosition()
 	_xPosition+=_timingInterval*velocity.getXDirection();
 	_yPosition+=_timingInterval*velocity.getYDirection();
 	int _tempPosX=_xPosition;
+	if(_yPosition>_elevations[_tempPosX])
+	{
+		_elevationFlags[_tempPosX]=1;
+	}
 	if(_yPosition<_elevations[_tempPosX])
 	{
+		if(_elevationFlags[_tempPosX])
+		{
+			_yPosition=_elevations[_tempPosX];
+			velocity.setYDirection(0);
+		}
 		_xPosition=_tempx;
 		_yPosition=_tempy;
 		velocity.setXDirection(0);
@@ -26,8 +35,12 @@ double Dynamic_object::incrementPosition()
 	{
 		velocity.setYDirection(velocity.getYDirection()-9.801/_timingInterval);
 	}
+	if(_lastX!=_tempPosX)
+	{
+		_elevationFlags[_lastX]=0;
+	}
 
-	//add in changes to x and y velocities
+	_lastX=_tempPosX;
 
 }
 
@@ -40,4 +53,5 @@ Dynamic_object::Dynamic_object(std::ostream & os, const std::vector<double> & ve
 {
 	_mass=_xPosition=_yPosition=_momentum=0;
 	_elevations=vec;
+	_elevationFlags.resize(_elevations.size());
 }
