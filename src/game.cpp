@@ -30,7 +30,7 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 	// initialize opengl states
 	glewExperimental = GL_TRUE; 
 	glewInit();
-	glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
@@ -38,11 +38,13 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 	// temporary
 	const std::string PATH_TO_PLAYER = "../res/models/playerTemp.obj";
 	const std::string PATH_TO_BACKGROUND = "../res/models/background00.obj";
+	const std::string PATH_TO_PLAYER_VERT_SOURCE = "../res/shaders/playerShaderVertex.vert";
+	const std::string PATH_TO_PLAYER_FRAG_SOURCE ="../res/shaders/playerShaderFragment.frag";
 	const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
 	const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
 
 	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_BACKGROUND, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
-	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
+	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_PLAYER_VERT_SOURCE, PATH_TO_PLAYER_FRAG_SOURCE));
 	gameObjects_[1]->translate(glm::vec3(-3.0f, -2.5f, 0));
 	gameObjects_[0]->translate(glm::vec3(0,0, -10.0f));
 }
