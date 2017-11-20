@@ -14,6 +14,7 @@ public:
 	double getTotalDirection()const;
 	double getAngle()const;
 	void squareUpTotalDirection();
+	double getTotalVelocity()const;
 
 };
 

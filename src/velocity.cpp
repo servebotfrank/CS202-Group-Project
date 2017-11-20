@@ -75,3 +75,8 @@ void Velocity::squareUpTotalDirection()
 		_angle=std::atan(_yDirection/_xDirection)+pi;
 	}
 }
+
+double Velocity::getTotalVelocity()const
+{
+	return _total;
+}
