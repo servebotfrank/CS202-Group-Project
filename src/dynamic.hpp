@@ -18,9 +18,10 @@ private:
 public:
 	void setMass(double mass);
 	double getMass()const;
-	double incrementPosition();
+	void incrementPosition();
 	void fixMomentum();
 	Dynamic_object(std::ostream & os, const std::vector<double> & vec);
+	void setXYVelocity(double xVelocity, double yVelocity);
 };
 
 #endif
