@@ -9,7 +9,7 @@ class Dynamic_object
 {
 private:
 	int _lastX;
-	Velocity velocity;
+	Velocity _velocity;
 	double _mass, _momentum, _xPosition, _yPosition;
 	const double _timingInterval=1/30;//set to whatever the timing interval is
 	std::vector<double> _elevations;
