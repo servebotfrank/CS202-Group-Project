@@ -14,7 +14,7 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 			   gameObjects_(0),
 			   objectFactory_{},
 			   fov_{90}, projection_{getProjection()},
-			   camera_{glm::vec3(0.0f,0.0f,5.0f)},
+			   camera_{glm::vec3(0.0f,0.0f,10.0f)},
 			   framerateLimit_{30} {
 	// print versions
 	std::cout << "Application Version: " << getVersionString() << std::endl;
@@ -33,10 +33,13 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 	const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
 	const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
 
-	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_BACKGROUND, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
 	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
-	gameObjects_[1]->translate(glm::vec3(-3.0f, -2.5f, 0));
-	gameObjects_[0]->translate(glm::vec3(0,0, -10.0f));
+	gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_BACKGROUND, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
+
+	gameObjects_[0]->translate(glm::vec3(-3.0f, -2.5f, 0));
+	gameObjects_[1]->translate(glm::vec3(0,0, -10.0f));
+
+	playerIterator_ = gameObjects_.begin();
 }
 void Game::initSFMLStates() {
 	contextSettings_ = window_.getSettings();
@@ -46,7 +49,7 @@ void Game::initSFMLStates() {
 	window_.setActive();
 }
 void Game::initOpenGLStates() const {
-	glewExperimental = GL_TRUE; 
+	glewExperimental = GL_TRUE;
 	glewInit();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
@@ -56,8 +59,11 @@ void Game::initOpenGLStates() const {
 
 void Game::run() {
 	running_ = true;
+	bool runningCommand_ = false;
 	while(running_) {
-		processEvents();
+		if(!runningCommand_) {
+			processEvents();
+		}
 
 		update();
 
@@ -87,6 +93,29 @@ std::string Game::getVersionString() const {
 	return versionString;
 }
 
+void Game::processCommand() {
+/*
+	std::string command;
+	std::cin >> command;
+	if(command == "move") {
+		int distance = 0;
+		std::cin >> distance;
+		(*playerIterator_)->move(5);
+	} else if(command == "flip") {
+		(*playerIterator_)->flip();
+	} else if(command == "jump") {
+		(*playerIterator_)->jump();
+	} else {
+		help();
+	}
+*/
+}
+
+void Game::help() const {
+	std::cout << "press left or right arrows to move" << std::endl;
+	std::cout << "press space to jump" << std::endl;
+}
+
 void Game::processEvents() {
 	sf::Event event;
 	while(window_.pollEvent(event)) {
@@ -101,14 +130,17 @@ void Game::processEvents() {
 			case sf::Event::GainedFocus:
 			case sf::Event::TextEntered:
 			case sf::Event::KeyPressed:
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			{
-			gameObjects_[1]->translate(glm::vec3(-0.5f, 0, 0));
-			}
-			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			{
-			gameObjects_[1]->translate(glm::vec3(0.5f, 0, 0));
-			}
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+					(*playerIterator_)->faceLeft();
+					(*playerIterator_)->translate(glm::vec3(0.25f, 0, 0));
+				}
+				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+					(*playerIterator_)->faceRight();
+					(*playerIterator_)->translate(glm::vec3(0.25f, 0, 0));
+				}
+				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+					//(*playerIterator_)->translate(glm::vec3());
+				}
 			break;
 			case sf::Event::KeyReleased:
 			case sf::Event::MouseWheelMoved:

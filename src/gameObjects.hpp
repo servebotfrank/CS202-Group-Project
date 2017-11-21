@@ -1,12 +1,13 @@
 #ifndef GAME_OBJECTS_H_P_P
 #define GAME_OBJECTS_H_P_P
 
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <memory>
 #include <string>
 #include <algorithm>
 
-#ifdef __APPLE__
+#ifdef Xcode
 #include <OpenGL/glew.h>
 #else
 #include <GL/glew.h>
@@ -16,8 +17,9 @@
 #include <SFML/OpenGL.hpp>
 
 #include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <glm/gtx/matrix_decompose.hpp>
 #include "mesh.hpp"
 #include "shader.hpp"
 
@@ -47,6 +49,9 @@ public:
 
 	glm::vec3 getPosition() const;
 	void translate(const glm::vec3 &difference);
+
+	void faceLeft();
+	void faceRight();
 private:
 	std::shared_ptr<Mesh> mesh_;
 	std::shared_ptr<Shader> shader_;

@@ -46,6 +46,34 @@ void GameObject::setModelTransform(const glm::mat4 &transform) {
 void GameObject::translate(const glm::vec3 &difference) {
 	modelTransform_ = glm::translate(modelTransform_, difference);
 }
+void GameObject::faceLeft() {
+	glm::vec3 scale;
+	glm::quat rotation;
+	glm::vec3 translation;
+	glm::vec3 skew;
+	glm::vec4 perspective;
+	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
+
+	rotation = glm::conjugate(rotation);
+	std::cout <<  "rotation: " << rotation.y << " " << rotation.x << " " << rotation.z << std::endl;
+	if(rotation.y > 0) {
+		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+}
+void GameObject::faceRight() {
+	glm::vec3 scale;
+	glm::quat rotation;
+	glm::vec3 translation;
+	glm::vec3 skew;
+	glm::vec4 perspective;
+	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
+
+	rotation = glm::conjugate(rotation);
+	std::cout <<  "rotation: " << rotation.y << " " << rotation.x << " " << rotation.z << std::endl;
+	if(rotation.y <= 0) {
+		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+}
 Platform::Platform(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader )
