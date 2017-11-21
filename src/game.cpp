@@ -101,6 +101,15 @@ void Game::processEvents() {
 			case sf::Event::GainedFocus:
 			case sf::Event::TextEntered:
 			case sf::Event::KeyPressed:
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+			gameObjects_[1]->translate(glm::vec3(-0.5f, 0, 0));
+			}
+			else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+			gameObjects_[1]->translate(glm::vec3(0.5f, 0, 0));
+			}
+			break;
 			case sf::Event::KeyReleased:
 			case sf::Event::MouseWheelMoved:
 			case sf::Event::MouseWheelScrolled:

@@ -82,6 +82,8 @@ public:
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
+	//virtual void updatePhysics(char &direction);
+
 };
 
 

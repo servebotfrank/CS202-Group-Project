@@ -94,5 +94,16 @@ void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glBindVertexArray(getVAO());
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
 }
-void Player::updatePhysics() {
-}
+void Player::updatePhysics()
+{}
+/*
+void Player::updatePhysics(char &direction) {
+	if(direction == 'r')
+	{
+			setModelTransform( glm::translate(getModelTransform(), glm::vec3(0.0f, 1.0f, 0.0f)) );
+	} else if(direction == 'l')
+	{
+			setModelTransform( glm::translate(getModelTransform(), glm::vec3(0.0f, -1.0f, 0.0f)) );
+	} else
+	{}
+	*/
