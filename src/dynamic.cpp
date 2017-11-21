@@ -49,7 +49,7 @@ void Dynamic_object::fixMomentum()
 	_momentum=velocity.getTotalVelocity()*_mass;
 }
 
-Dynamic_object::Dynamic_object(std::ostream & os, const std::vector<double> & vec)
+Dynamic_object::Dynamic_object(const std::vector<double> & vec)
 {
 	_mass=_xPosition=_yPosition=_momentum=0;
 	_elevations=vec;
@@ -63,4 +63,13 @@ void Dynamic_object::setXYVelocity(double xVelocity, double yVelocity)
 	velocity.setYDirection(yVelocity);
 
 	velocity.setXDirection(xVelocity);
+}
+
+double Dynamic_object::getXPosition()const
+{
+	return _xPosition;
+}
+double Dynamic_object::getYPosition()const
+{
+	return _yPosition;
 }

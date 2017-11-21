@@ -20,8 +20,10 @@ public:
 	double getMass()const;
 	void incrementPosition();
 	void fixMomentum();
-	Dynamic_object(std::ostream & os, const std::vector<double> & vec);
+	Dynamic_object(const std::vector<double> & vec);
 	void setXYVelocity(double xVelocity, double yVelocity);
+	double getXPosition()const;
+	double getYPosition()const;
 };
 
 #endif
