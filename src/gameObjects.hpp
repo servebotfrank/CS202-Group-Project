@@ -51,10 +51,13 @@ public:
 	void setModelTransform(const glm::mat4 &transform);
 
 	glm::vec3 getPosition() const;
+	void setPosition(double xPos, double yPos);
 	void translate(const glm::vec3 &difference);
 
 	void faceLeft();
 	void faceRight();
+
+	Dynamic_object& getDynamicObject();
 private:
 	std::shared_ptr<Mesh> mesh_;
 	std::shared_ptr<Shader> shader_;

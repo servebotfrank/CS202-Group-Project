@@ -37,7 +37,10 @@ glm::mat4 GameObject::getModelTransform() const {
 glm::vec3 GameObject::getPosition() const {
 	return glm::vec3(modelTransform_[3][0], modelTransform_[3][1], modelTransform_[3][2]);
 }
-
+void GameObject::setPosition(double xPos, double yPos) {
+	modelTransform_[3][0] = xPos;
+	modelTransform_[3][1] = yPos;
+}
 void GameObject::setUniformMat4(const std::string &name, const glm::mat4 &mat4) const {
 	shader_->setUniformMat4(name, mat4);
 }
@@ -76,6 +79,14 @@ void GameObject::faceRight() {
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
+Dynamic_object& GameObject::getDynamicObject() {
+	return dynamicObject_;
+}
+
+
+
+
+
 Platform::Platform(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
@@ -128,8 +139,10 @@ void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glBindVertexArray(getVAO());
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
 }
-void Player::updatePhysics()
-{}
+void Player::updatePhysics() {
+	getDynamicObject().incrementPosition();
+	setPosition(getDynamicObject().getXPosition(), getDynamicObject().getYPosition());
+}
 /*
 void Player::updatePhysics(char &direction) {
 	if(direction == 'r')
