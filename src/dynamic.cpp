@@ -61,7 +61,7 @@ Dynamic_object::Dynamic_object(const std::vector<double> & vec)
 void Dynamic_object::setXYVelocity(double xVelocity, double yVelocity) //input goes here
 {
 	int temp=_xPosition;
-	if(!(_yPosition>_elevations[temp])) //Throws out user input if player is in air. Means player has NO AIR CONTROL, as intended.
+	if(_yPosition==_elevations[temp]) //Throws out user input if player is in air. Means player has NO AIR CONTROL, as intended.
 	{
 	_velocity.setYDirection(yVelocity);
 	_velocity.setXDirection(xVelocity);
