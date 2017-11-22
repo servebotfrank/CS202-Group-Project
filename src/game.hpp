@@ -11,7 +11,7 @@
 #include <vector>
 #include <memory>
 
-#ifdef __APPLE__
+#ifdef Xcode
 #include <OpenGL/glew.h>
 #else
 #include <GL/glew.h>
@@ -43,6 +43,7 @@ private:
 	sf::Window window_;
 	bool running_;
 	std::vector<std::unique_ptr<GameObject>> gameObjects_;
+	std::vector<std::unique_ptr<GameObject>>::iterator playerIterator_;
 	GameObjectFactory objectFactory_;
 
 	float fov_;
@@ -54,6 +55,8 @@ private:
 	void initSFMLStates();
 	void initOpenGLStates() const;
 
+	void processCommand();
+	void help() const;
 	void processEvents();
 	void update();
 
