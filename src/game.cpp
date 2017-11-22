@@ -132,11 +132,11 @@ void Game::processEvents() {
 			case sf::Event::KeyPressed:
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 					(*playerIterator_)->faceLeft();
-					(*playerIterator_)->translate(glm::vec3(0.25f, 0, 0));
+					(*playerIterator_)->getDynamicObject().setXYVelocity(0.5, 0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 					(*playerIterator_)->faceRight();
-					(*playerIterator_)->translate(glm::vec3(0.25f, 0, 0));
+					(*playerIterator_)->getDynamicObject().setXYVelocity(0.5, 0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 					
