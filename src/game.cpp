@@ -139,7 +139,9 @@ void Game::processEvents() {
 					(*playerIterator_)->translate(glm::vec3(0.25f, 0, 0));
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					//(*playerIterator_)->translate(glm::vec3());
+					
+				} else {
+					help();
 				}
 			break;
 			case sf::Event::KeyReleased:
