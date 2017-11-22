@@ -45,6 +45,8 @@ configure_file (
 )
 
 # Add our objects to cmake
+add_library(velocity STATIC ${PROJECT_SOURCE_DIR}/velocity.cpp)
+add_library(dynamic STATIC ${PROJECT_SOURCE_DIR}/dynamic.cpp)
 add_library(mesh STATIC ${PROJECT_SOURCE_DIR}/mesh.cpp)
 add_library(shader STATIC ${PROJECT_SOURCE_DIR}/shader.cpp)
 add_library(gameObjects STATIC ${PROJECT_SOURCE_DIR}/gameObjects.cpp)
@@ -100,6 +102,9 @@ if (GLM_FOUND)
 endif()
 
 # Link our files depending on their dependencies
+target_link_libraries(dynamic velocity)
+
+target_link_libraries(gameObjects dynamic)
 target_link_libraries(gameObjects mesh)
 target_link_libraries(gameObjects shader)
 
