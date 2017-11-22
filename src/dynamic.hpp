@@ -1,7 +1,6 @@
 //mass, velocity, position
 #ifndef DYNAMIC_OBJECT_HPP
 #define DYNAMIC_OBJECT_HPP
-#include <iostream>
 #include <vector>
 #include "velocity.hpp"
 
