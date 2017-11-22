@@ -22,16 +22,19 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include "mesh.hpp"
 #include "shader.hpp"
+#include "dynamic.hpp"
 
 class GameObject {
 public:
 	GameObject (
 		std::shared_ptr<Mesh> mesh,
-		std::shared_ptr<Shader> shader);
+		std::shared_ptr<Shader> shader,
+		std::vector<double> elevation);
 	GameObject(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
-		const std::string &pathToFragSource);
+		const std::string &pathToFragSource,
+		std::vector<double> elevation);
 
 	virtual ~GameObject() {}
 
@@ -56,17 +59,21 @@ private:
 	std::shared_ptr<Mesh> mesh_;
 	std::shared_ptr<Shader> shader_;
 	glm::mat4 modelTransform_;
+
+	Dynamic_object dynamicObject_;
 };
 
 class Platform : public GameObject {
 public:
 	Platform(
 		std::shared_ptr<Mesh> mesh,
-		std::shared_ptr<Shader> shader);
+		std::shared_ptr<Shader> shader,
+		std::vector<double> elevation);
 	Platform(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
-		const std::string &pathToFragSource);
+		const std::string &pathToFragSource,
+		std::vector<double> elevation);
 
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
@@ -79,11 +86,13 @@ class Player : public GameObject {
 public:
 	Player(
 		std::shared_ptr<Mesh> mesh,
-		std::shared_ptr<Shader> shader);
+		std::shared_ptr<Shader> shader,
+		std::vector<double> elevation);
 	Player(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
-		const std::string &pathToFragSource);
+		const std::string &pathToFragSource,
+		std::vector<double> elevation);
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;

@@ -2,18 +2,22 @@
 
 GameObject::GameObject(
 	std::shared_ptr<Mesh> mesh,
-	std::shared_ptr<Shader> shader) :
+	std::shared_ptr<Shader> shader,
+	std::vector<double> elevation) :
 	mesh_(mesh),
 	shader_(shader),
-	modelTransform_{} {}
+	modelTransform_{},
+	dynamicObject_{elevation} {}
 
 GameObject::GameObject(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
-	const std::string &pathToFragSource) :
+	const std::string &pathToFragSource,
+	std::vector<double> elevation) :
 	mesh_{std::make_shared<Mesh>(pathToObj)},
 	shader_{std::make_shared<Shader>(pathToVertSource, pathToFragSource)},
-	modelTransform_{} {}
+	modelTransform_{},
+	dynamicObject_{elevation} {}
 
 unsigned int GameObject::getShaderProgram() const {
 	return shader_->getShaderProgram();
@@ -55,7 +59,6 @@ void GameObject::faceLeft() {
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
-	std::cout <<  "rotation: " << rotation.y << " " << rotation.x << " " << rotation.z << std::endl;
 	if(rotation.y > 0) {
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
@@ -69,21 +72,22 @@ void GameObject::faceRight() {
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
-	std::cout <<  "rotation: " << rotation.y << " " << rotation.x << " " << rotation.z << std::endl;
 	if(rotation.y <= 0) {
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
 Platform::Platform(
 	std::shared_ptr<Mesh> mesh,
-	std::shared_ptr<Shader> shader )
-	: GameObject(mesh, shader) {}
+	std::shared_ptr<Shader> shader,
+	std::vector<double> elevation )
+	: GameObject{mesh, shader, elevation} {}
 
 Platform::Platform(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
-	const std::string &pathToFragSource)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource} {}
+	const std::string &pathToFragSource,
+	std::vector<double> elevation)
+	: GameObject{pathToObj, pathToVertSource, pathToFragSource, elevation} {}
 
 
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
@@ -102,14 +106,16 @@ void Platform::updatePhysics() {
 
 Player::Player(
 	std::shared_ptr<Mesh> mesh,
-	std::shared_ptr<Shader> shader )
-	: GameObject(mesh, shader) {}
+	std::shared_ptr<Shader> shader,
+	std::vector<double> elevation )
+	: GameObject{mesh, shader, elevation} {}
 
 Player::Player(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
-	const std::string &pathToFragSource)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource} {}
+	const std::string &pathToFragSource,
+	std::vector<double> elevation)
+	: GameObject{pathToObj, pathToVertSource, pathToFragSource, elevation} {}
 
 	
 void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
