@@ -3,6 +3,7 @@
 #define DYNAMIC_OBJECT_HPP
 #include <vector>
 #include "velocity.hpp"
+#include <iostream>
 
 class Dynamic_object
 {
