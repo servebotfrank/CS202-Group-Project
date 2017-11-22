@@ -1,6 +1,8 @@
 #ifndef VELOCITY_HPP
 #define VELOCITY_HPP
 
+#include <cmath>
+
 class Velocity
 {
 private:

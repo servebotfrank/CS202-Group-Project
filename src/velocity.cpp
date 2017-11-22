@@ -1,5 +1,4 @@
 #include "velocity.hpp"
-#include <cmath>
 
 
 void Velocity::setXDirection(double xDirection)
