@@ -41,7 +41,7 @@ void Dynamic_object::incrementPosition() //discrete simulation of continuous mov
 	}
 
 	_lastX=_tempPosX;
-	std::cout<<"incrementing position x= "<<_xPosition<<" y = "<<_y<<std::endl;
+	std::cout<<"incrementing position x= "<<_xPosition<<" y = "<<_yPosition<<std::endl;
 
 }
 
