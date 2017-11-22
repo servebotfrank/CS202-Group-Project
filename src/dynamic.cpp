@@ -41,7 +41,7 @@ void Dynamic_object::incrementPosition() //discrete simulation of continuous mov
 	}
 
 	_lastX=_tempPosX;
-	std::cout<<"incrementing position"<<std::endl;
+	std::cout<<"incrementing position x= "<<_xPosition<<" y = "<<_y<<std::endl;
 
 }
 
@@ -67,7 +67,7 @@ void Dynamic_object::setXYVelocity(double xVelocity, double yVelocity) //input g
 	_velocity.setYDirection(yVelocity);
 	_velocity.setXDirection(xVelocity);
 	}
-	std::cout<<"setting x,y velocities"<<std::endl;
+	std::cout<<"x velocity = " << _velocity.getXDirection()<<" y velocity = "<<_velocity.getYDirection()<<std::endl;
 }
 
 double Dynamic_object::getXPosition()const
