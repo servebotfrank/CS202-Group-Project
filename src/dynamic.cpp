@@ -51,6 +51,8 @@ void Dynamic_object::fixMomentum()
 
 Dynamic_object::Dynamic_object(const std::vector<double> & vec)
 {
+	_velocity.setYDirection(0);
+	_velocity.setXDirection(0);
 	_mass=_xPosition=_yPosition=_momentum=0;
 	_elevations=vec;
 	_elevationFlags.resize(_elevations.size());
