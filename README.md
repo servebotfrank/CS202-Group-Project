@@ -57,7 +57,7 @@ now run the program
 2) Implement a jump
 3) Possibly work in Bounding boxes for AABB - AABB collision detection (See LearnOpengl 3.3 pdf, page 490)
 	-Re-allign models to first quandrant in Blender Export, for consistency in bounds checking.
-4) Get user input via text parser
+4) Get user input via text parser	//JakeF: Working on this
 
 Non-Essential Targets
 1) Set up music
