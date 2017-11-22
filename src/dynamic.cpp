@@ -10,13 +10,13 @@ double Dynamic_object::getMass()const
 	return _mass;
 }
 
-void Dynamic_object::incrementPosition()
+void Dynamic_object::incrementPosition() //discrete simulation of continuous movement, frame by frame
 {
 	double _tempx=_xPosition, _tempy=_yPosition;
-	_xPosition+=_timingInterval*_velocity.getXDirection();
+	_xPosition+=_timingInterval*_velocity.getXDirection(); //timing interval is set to 1/30, since we're target 30 fps
 	_yPosition+=_timingInterval*_velocity.getYDirection();
 	int _tempPosX=_xPosition;
-	if(_yPosition>_elevations[_tempPosX])
+	if(_yPosition>_elevations[_tempPosX]) //elevation checks uses X positions as an indices. 
 	{
 		_elevationFlags[_tempPosX]=1;
 	}
@@ -56,10 +56,10 @@ Dynamic_object::Dynamic_object(const std::vector<double> & vec)
 	_elevationFlags.resize(_elevations.size());
 }
 
-void Dynamic_object::setXYVelocity(double xVelocity, double yVelocity)
+void Dynamic_object::setXYVelocity(double xVelocity, double yVelocity) //input goes here
 {
 	int temp=_xPosition;
-	if(!(_yPosition>_elevations[temp]))
+	if(!(_yPosition>_elevations[temp])) //Throws out user input if player is in air. Means player has NO AIR CONTROL, as intended.
 	{
 	_velocity.setYDirection(yVelocity);
 	_velocity.setXDirection(xVelocity);
