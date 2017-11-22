@@ -33,7 +33,7 @@ void Dynamic_object::incrementPosition()
 	}
 	if(_yPosition>_elevations[_tempPosX])
 	{
-		_velocity.setYDirection(_velocity.getYDirection()-9.806/_timingInterval);
+		_velocity.setYDirection(_velocity.getYDirection()-9.806*_timingInterval);
 	}
 	if(_lastX!=_tempPosX)
 	{
