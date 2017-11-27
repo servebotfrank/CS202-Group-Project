@@ -20,6 +20,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Graphics.hpp> // sf::image
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -30,7 +31,7 @@ public:
 
 	void run();
 
-	std::string getVersionString() const;
+	std::string getDependancyAndAppInfoString() const;
 	glm::mat4 getProjection() const;
 	uint16_t getFramerateLimit() const;
 	void setFramerateLimit(uint16_t framerateLimit);
