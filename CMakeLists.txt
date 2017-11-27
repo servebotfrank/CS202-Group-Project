@@ -24,7 +24,7 @@ message(">	Supported features:	${CMAKE_CXX_COMPILE_FEATURES}")
 message("------------------------------")
 
 
-# Setup project layout
+# Setup project directory layout
 set(PROJECT_ROOT_DIR "${PROJECT_SOURCE_DIR}")
 set(PROJECT_SOURCE_DIR "${PROJECT_ROOT_DIR}/src")
 include_directories("${PROJECT_SOURCE_DIR}")
@@ -61,7 +61,7 @@ add_executable(${EXECUTABLE_NAME}
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Link SFML 2
-find_package(SFML 2 REQUIRED COMPONENTS system window audio)
+find_package(SFML 2 REQUIRED COMPONENTS system window audio graphics)
 if (SFML_FOUND)
 	include_directories(${SFML_INCLUDE_DIR})
 	target_link_libraries(mesh ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
