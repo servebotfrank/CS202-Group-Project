@@ -7,7 +7,8 @@ GameObject::GameObject(
 	mesh_(mesh),
 	shader_(shader),
 	modelTransform_{},
-	dynamicObject_{elevation} {}
+	dynamicObject_{elevation},
+	width_{1}, height_{1} {}
 
 GameObject::GameObject(
 	const std::string &pathToObj,
@@ -17,7 +18,8 @@ GameObject::GameObject(
 	mesh_{std::make_shared<Mesh>(pathToObj)},
 	shader_{std::make_shared<Shader>(pathToVertSource, pathToFragSource)},
 	modelTransform_{},
-	dynamicObject_{elevation} {}
+	dynamicObject_{elevation},
+	width_{1}, height_{1} {}
 
 unsigned int GameObject::getShaderProgram() const {
 	return shader_->getShaderProgram();
@@ -34,13 +36,6 @@ size_t GameObject::getIndexCount() const {
 glm::mat4 GameObject::getModelTransform() const {
 	return modelTransform_;
 }
-glm::vec3 GameObject::getPosition() const {
-	return glm::vec3(modelTransform_[3][0], modelTransform_[3][1], modelTransform_[3][2]);
-}
-void GameObject::setPosition(double xPos, double yPos) {
-	modelTransform_[3][0] = xPos;
-	modelTransform_[3][1] = yPos;
-}
 void GameObject::setUniformMat4(const std::string &name, const glm::mat4 &mat4) const {
 	shader_->setUniformMat4(name, mat4);
 }
@@ -53,6 +48,32 @@ void GameObject::setModelTransform(const glm::mat4 &transform) {
 void GameObject::translate(const glm::vec3 &difference) {
 	modelTransform_ = glm::translate(modelTransform_, difference);
 }
+
+glm::vec3 GameObject::getPosition() const {
+	return glm::vec3(modelTransform_[3][0], modelTransform_[3][1], modelTransform_[3][2]);
+}
+void GameObject::setPosition(double xPos, double yPos) {
+	modelTransform_[3][0] = xPos;
+	modelTransform_[3][1] = yPos;
+}
+void GameObject::setPosition(const glm::vec3 &position) {
+	modelTransform_[3][0] = position[0];
+	modelTransform_[3][1] = position[1];
+	modelTransform_[3][2] = position[2];
+}
+float GameObject::getWidth() const {
+	return width_;
+}
+void GameObject::setWidth(float width) {
+	width_ = width;
+}
+float GameObject::getHeight() const {
+	return height_;
+}
+void GameObject::setHeight(float height) {
+	height_ = height;
+}
+
 void GameObject::faceLeft() {
 	glm::vec3 scale;
 	glm::quat rotation;
@@ -63,6 +84,7 @@ void GameObject::faceLeft() {
 
 	rotation = glm::conjugate(rotation);
 	if(rotation.y > 0) {
+		// rotate the model about the y axis(vertical axis) by pi radians
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
@@ -76,6 +98,7 @@ void GameObject::faceRight() {
 
 	rotation = glm::conjugate(rotation);
 	if(rotation.y <= 0) {
+		// rotate the model about the y axis(vertical axis) by pi radians
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
@@ -112,8 +135,9 @@ void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
 }
 void Platform::updatePhysics() {
-	setModelTransform( glm::rotate(getModelTransform(), (float)std::exp(-6), glm::vec3(0.0f, 1.0f, 0.0f)) );
+
 }
+
 
 Player::Player(
 	std::shared_ptr<Mesh> mesh,
@@ -143,14 +167,6 @@ void Player::updatePhysics() {
 	getDynamicObject().incrementPosition();
 	setPosition(getDynamicObject().getXPosition(), getDynamicObject().getYPosition());
 }
-/*
-void Player::updatePhysics(char &direction) {
-	if(direction == 'r')
-	{
-			setModelTransform( glm::translate(getModelTransform(), glm::vec3(0.0f, 1.0f, 0.0f)) );
-	} else if(direction == 'l')
-	{
-			setModelTransform( glm::translate(getModelTransform(), glm::vec3(0.0f, -1.0f, 0.0f)) );
-	} else
-	{}
-	*/
+
+
+

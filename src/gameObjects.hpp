@@ -49,10 +49,15 @@ public:
 	glm::mat4 getModelTransform() const;
 	void setUniformMat4(const std::string &name, const glm::mat4 &mat4) const;
 	void setModelTransform(const glm::mat4 &transform);
+	void translate(const glm::vec3 &difference);
 
 	glm::vec3 getPosition() const;
 	void setPosition(double xPos, double yPos);
-	void translate(const glm::vec3 &difference);
+	void setPosition(const glm::vec3 &position);
+	float getWidth() const;
+	void setWidth(float width);
+	float getHeight() const;
+	void setHeight(float height);
 
 	void faceLeft();
 	void faceRight();
@@ -64,6 +69,9 @@ private:
 	glm::mat4 modelTransform_;
 
 	Dynamic_object dynamicObject_;
+
+	float width_;
+	float height_;
 };
 
 class Platform : public GameObject {
