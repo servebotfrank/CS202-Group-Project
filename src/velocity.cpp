@@ -1,5 +1,8 @@
 #include "velocity.hpp"
 
+Velocity::Velocity(double xVelocity, double yVelocity) 
+	: _xDirection{xVelocity}, _yDirection{yVelocity},
+	  _total{0}, _angle{0} {}
 
 void Velocity::setXDirection(double xDirection)
 {

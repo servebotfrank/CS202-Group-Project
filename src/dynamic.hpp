@@ -11,7 +11,7 @@ private:
 	int _lastX;
 	Velocity _velocity;
 	double _mass, _momentum, _xPosition, _yPosition;
-	const double _timingInterval=1.0/30;//set to whatever the timing interval is
+	const double _timingInterval; // set to whatever the timing interval is in the initializer list
 	std::vector<double> _elevations;
 	std::vector <int> _elevationFlags;
 	//Position x and y coords will talk to the graphics processor

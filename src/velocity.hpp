@@ -9,6 +9,8 @@ private:
 	double _xDirection,_yDirection, _total, _angle;
 	//need some way to handle direction
 public:
+	Velocity(double xVelocity, double yVelocity);
+
 	void setXDirection(double xDirection);
 	double getXDirection()const;
 	void setYDirection(double yDirection);

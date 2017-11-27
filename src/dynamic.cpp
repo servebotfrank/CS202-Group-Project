@@ -50,14 +50,13 @@ void Dynamic_object::fixMomentum()
 	_momentum=_velocity.getTotalVelocity()*_mass;
 }
 
-Dynamic_object::Dynamic_object(const std::vector<double> & vec)
-{
-	_velocity.setYDirection(0);
-	_velocity.setXDirection(0);
-	_mass=_xPosition=_yPosition=_momentum=0;
-	_elevations=vec;
-	_elevationFlags.resize(_elevations.size());
-}
+Dynamic_object::Dynamic_object(const std::vector<double> & elevation)
+	: _lastX{0},
+	  _velocity{0, 0},
+	  _mass{0}, _momentum{0}, _xPosition{0}, _yPosition{0},
+	  _timingInterval{1.0/30.0},
+	  _elevations{elevation}, _elevationFlags(elevation.size())
+{}
 
 void Dynamic_object::setXYVelocity(double xVelocity, double yVelocity) //input goes here
 {
