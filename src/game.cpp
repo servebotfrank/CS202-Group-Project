@@ -31,11 +31,8 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 		const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
 		const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
 
-		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
-		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_RECTANGLE, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
-
-		gameObjects_[0]->translate(glm::vec3(0, 0, 0));
-		gameObjects_[1]->translate(glm::vec3(0, -1.5, 0));
+		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, 4, 0)));
+		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_RECTANGLE, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, -2, 0)));
 
 		playerIterator_ = gameObjects_.begin();
 	}
@@ -156,12 +153,12 @@ void Game::processEvents() {
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 					(*playerIterator_)->faceLeft();
 					std::cout<<"about to call function to set xy velocities"<<std::endl;
-					(*playerIterator_)->getDynamicObject().setXYVelocity(-0.5, 0);
+					(*playerIterator_)->getDynamicObject().setXVelocity(-0.5);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 					(*playerIterator_)->faceRight();
 					std::cout<<"about to call function to set xy velocities"<<std::endl;
-					(*playerIterator_)->getDynamicObject().setXYVelocity(0.5, 0);
+					(*playerIterator_)->getDynamicObject().setXVelocity(0.5);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 					
