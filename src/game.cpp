@@ -35,7 +35,7 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_RECTANGLE, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE));
 
 		gameObjects_[0]->translate(glm::vec3(0, 0, 0));
-		gameObjects_[1]->translate(glm::vec3(0, -2, 0));
+		gameObjects_[1]->translate(glm::vec3(0, -1.5, 0));
 
 		playerIterator_ = gameObjects_.begin();
 	}
@@ -53,24 +53,26 @@ void Game::initSFMLStates() {
 }
 void Game::initOpenGLStates() const {
 	glewExperimental = GL_TRUE; // tells glew to use the newest features, features from opengl 3.3 and higher
+								// else glew only loads features from 1.1 to 3.2
 	GLenum glewErr = glewInit(); // loads opengl extensions
 	if(glewErr != GLEW_OK) {
 		throw std::runtime_error("Error::glewInit()::failed");
 	}
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // sets tha background to black
-	glEnable(GL_DEPTH_TEST); // draws faces behind appropriate faces instead of drawing the most recently process face infront of all others
+	glEnable(GL_DEPTH_TEST); // draws faces behind appropriate faces instead of drawing the most recently process face infront of all other faces
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK); // doesn't draw faces that are facing away from the camera
 }
 
 void Game::run() {
 	running_ = true;
-	bool runningCommand_ = false;
+	bool runningCommand = false;
 	while(running_) { // main event loop
-		if(!runningCommand_) {
+		if(!runningCommand) {
 			processEvents();
 		}
 
+		checkCollisions();
 		update();
 
 		draw();
@@ -195,6 +197,26 @@ void Game::processEvents() {
 void Game::update() {
 	for(auto objectIterator = gameObjects_.begin(); objectIterator != gameObjects_.end(); ++objectIterator) {
 		(*objectIterator)->updatePhysics();
+	}
+}
+
+void Game::checkCollisions() const {
+	if(gameObjects_.size() >= 2) {
+		for(auto firstObjectIt = gameObjects_.begin(); firstObjectIt != gameObjects_.end() - 1; ++firstObjectIt) {
+			for(auto secondObjectIterator = gameObjects_.begin() + 1; secondObjectIterator != gameObjects_.end(); ++secondObjectIterator) {
+				bool collidingX = (*firstObjectIt)->getPosition()[0] + (*firstObjectIt)->getHeight() >= (*secondObjectIterator)->getPosition()[0] && (*secondObjectIterator)->getPosition()[0] + (*secondObjectIterator)->getHeight() >= (*firstObjectIt)->getPosition()[0];
+				bool collidingY = (*firstObjectIt)->getPosition()[1] + (*firstObjectIt)->getWidth() >= (*secondObjectIterator)->getPosition()[1] && (*secondObjectIterator)->getPosition()[1] + (*secondObjectIterator)->getWidth() >= (*firstObjectIt)->getPosition()[1];
+				bool colliding = collidingX && collidingY;
+				if(colliding) {
+					std::cout << (*firstObjectIt)->getDescription() << " is colliding with " << (*secondObjectIterator)->getDescription() << std::endl;
+					(*firstObjectIt)->setCollisionTarget(*secondObjectIterator);
+					(*secondObjectIterator)->setCollisionTarget(*firstObjectIt);
+				} else {
+					(*firstObjectIt)->setCollision(false);
+					(*secondObjectIterator)->setCollision(false);
+				}
+			}
+		}
 	}
 }
 

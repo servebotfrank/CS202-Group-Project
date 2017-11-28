@@ -43,8 +43,8 @@ private:
 	sf::ContextSettings contextSettings_;
 	sf::Window window_;
 	bool running_;
-	std::vector<std::unique_ptr<GameObject>> gameObjects_;
-	std::vector<std::unique_ptr<GameObject>>::iterator playerIterator_;
+	std::vector<std::shared_ptr<GameObject>> gameObjects_;
+	std::vector<std::shared_ptr<GameObject>>::iterator playerIterator_;
 	GameObjectFactory objectFactory_;
 
 	float fov_;
@@ -60,6 +60,7 @@ private:
 	void help() const;
 	void processEvents();
 	void update();
+	void checkCollisions() const;
 
 	void draw() const;
 	void swapFrameBuffers();
