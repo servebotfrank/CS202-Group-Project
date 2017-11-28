@@ -7,7 +7,8 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 	GameObjectTypes objectType,
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
-	const std::string &pathToFragSource ) {
+	const std::string &pathToFragSource,
+	const glm::vec3 &initialPosition ) {
 
 	bool foundMesh = false;
 	auto meshIterator = meshObjects_.begin();
@@ -42,9 +43,9 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 
 	switch(objectType) {
 		case GameObjectTypes::PLATFORM:
-			return std::make_shared<Platform>(*meshIterator, *shaderIterator, std::vector<double>(20));
+			return std::make_shared<Platform>(*meshIterator, *shaderIterator, initialPosition);
 		case GameObjectTypes::PLAYER:
-			return std::make_shared<Player>(*meshIterator, *shaderIterator, std::vector<double>(20));
+			return std::make_shared<Player>(*meshIterator, *shaderIterator, initialPosition);
 		default:
 			throw std::runtime_error("Error::GameObjectFactory::unreconized enum for game object type");
 			break;

@@ -25,7 +25,8 @@ public:
 		GameObjectTypes objectType,
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
-		const std::string &pathToFragSource );
+		const std::string &pathToFragSource,
+		const glm::vec3 &initialPosition );
 
 	void cleanUp(); // deletes shaders and meshes with only 1 owner - if this is
 					// the owner
