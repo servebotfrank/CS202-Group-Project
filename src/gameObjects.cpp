@@ -52,6 +52,15 @@ void GameObject::translate(const glm::vec3 &difference) {
 glm::vec3 GameObject::getPosition() const {
 	return glm::vec3(modelTransform_[3][0], modelTransform_[3][1], modelTransform_[3][2]);
 }
+float GameObject::getXPosition() const {
+	return modelTransform_[3][0];
+}
+float GameObject::getYPosition() const {
+	return modelTransform_[3][1];
+}
+float GameObject::getZPosition() const {
+	return modelTransform_[3][2];
+}
 void GameObject::setPosition(double xPos, double yPos) {
 	modelTransform_[3][0] = xPos;
 	modelTransform_[3][1] = yPos;
@@ -74,6 +83,17 @@ void GameObject::setHeight(float height) {
 	height_ = height;
 }
 
+void GameObject::setCollisionTarget(const std::shared_ptr<GameObject> &collidingWith) {
+	collidingWith_ = collidingWith;
+	isColliding_ = true;
+}
+void GameObject::setCollision(bool isColliding) {
+	isColliding_ = isColliding;
+}
+std::shared_ptr<GameObject> GameObject::getCollisionTarget() const {
+	return collidingWith_;
+}
+
 void GameObject::faceLeft() {
 	glm::vec3 scale;
 	glm::quat rotation;
@@ -83,8 +103,8 @@ void GameObject::faceLeft() {
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
-	if(rotation.y > 0) {
-		// rotate the model about the y axis(vertical axis) by pi radians
+	if(rotation.y >= 0) {
+		// rotate the model about the y axis(vertical axis) by pi radians(180 deg)
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
@@ -97,8 +117,8 @@ void GameObject::faceRight() {
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
-	if(rotation.y <= 0) {
-		// rotate the model about the y axis(vertical axis) by pi radians
+	if(rotation.y < 0) {
+		// rotate the model about the y axis(vertical axis) by pi radians(180 deg)
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
@@ -137,7 +157,9 @@ void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 void Platform::updatePhysics() {
 
 }
-
+std::string Platform::getDescription() const {
+	return "Platform";
+}
 
 Player::Player(
 	std::shared_ptr<Mesh> mesh,
@@ -166,6 +188,9 @@ void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 void Player::updatePhysics() {
 	getDynamicObject().incrementPosition();
 	setPosition(getDynamicObject().getXPosition(), getDynamicObject().getYPosition());
+}
+std::string Player::getDescription() const {
+	return "Player";
 }
 
 

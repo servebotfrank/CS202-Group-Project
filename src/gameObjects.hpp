@@ -40,6 +40,7 @@ public:
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const = 0;
 	virtual void updatePhysics() = 0;
+	virtual std::string getDescription() const = 0;
 
 	unsigned int getShaderProgram() const;
 	unsigned int getVAO() const;
@@ -52,12 +53,19 @@ public:
 	void translate(const glm::vec3 &difference);
 
 	glm::vec3 getPosition() const;
+	float getXPosition() const;
+	float getYPosition() const;
+	float getZPosition() const;
 	void setPosition(double xPos, double yPos);
 	void setPosition(const glm::vec3 &position);
 	float getWidth() const;
 	void setWidth(float width);
 	float getHeight() const;
 	void setHeight(float height);
+
+	void setCollisionTarget(const std::shared_ptr<GameObject> &collidingWith);
+	void setCollision(bool isColliding);
+	std::shared_ptr<GameObject> getCollisionTarget() const;
 
 	void faceLeft();
 	void faceRight();
@@ -72,6 +80,9 @@ private:
 
 	float width_;
 	float height_;
+
+	bool isColliding_;
+	std::shared_ptr<GameObject> collidingWith_;
 };
 
 class Platform : public GameObject {
@@ -89,6 +100,7 @@ public:
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
+	virtual std::string getDescription() const override;
 private:
 
 };
@@ -107,8 +119,7 @@ public:
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
-	//virtual void updatePhysics(char &direction);
-
+	virtual std::string getDescription() const override;
 };
 
 
