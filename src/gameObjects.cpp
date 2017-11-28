@@ -3,23 +3,27 @@
 GameObject::GameObject(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
-	std::vector<double> elevation) :
+	const glm::vec3 &initialPosition) :
 	mesh_(mesh),
 	shader_(shader),
 	modelTransform_{},
-	dynamicObject_{elevation},
-	width_{1}, height_{1} {}
+	dynamicObject_{glm::vec2(initialPosition[0], initialPosition[1])},
+	width_{1}, height_{1} {
+	setPosition(initialPosition);
+}
 
 GameObject::GameObject(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
 	const std::string &pathToFragSource,
-	std::vector<double> elevation) :
+	const glm::vec3 &initialPosition) :
 	mesh_{std::make_shared<Mesh>(pathToObj)},
 	shader_{std::make_shared<Shader>(pathToVertSource, pathToFragSource)},
 	modelTransform_{},
-	dynamicObject_{elevation},
-	width_{1}, height_{1} {}
+	dynamicObject_{glm::vec2(initialPosition[0], initialPosition[1])},
+	width_{1}, height_{1} {
+	setPosition(initialPosition);
+}
 
 unsigned int GameObject::getShaderProgram() const {
 	return shader_->getShaderProgram();
@@ -93,6 +97,9 @@ void GameObject::setCollision(bool isColliding) {
 std::shared_ptr<GameObject> GameObject::getCollisionTarget() const {
 	return collidingWith_;
 }
+bool GameObject::getCollisionState() const {
+	return isColliding_;
+}
 
 void GameObject::faceLeft() {
 	glm::vec3 scale;
@@ -133,15 +140,15 @@ Dynamic_object& GameObject::getDynamicObject() {
 Platform::Platform(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
-	std::vector<double> elevation )
-	: GameObject{mesh, shader, elevation} {}
+	const glm::vec3 &initialPosition)
+	: GameObject{mesh, shader, initialPosition} {}
 
 Platform::Platform(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
 	const std::string &pathToFragSource,
-	std::vector<double> elevation)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource, elevation} {}
+	const glm::vec3 &initialPosition)
+	: GameObject{pathToObj, pathToVertSource, pathToFragSource, initialPosition} {}
 
 
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
@@ -164,15 +171,15 @@ std::string Platform::getDescription() const {
 Player::Player(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
-	std::vector<double> elevation )
-	: GameObject{mesh, shader, elevation} {}
+	const glm::vec3 &initialPosition)
+	: GameObject{mesh, shader, initialPosition} {}
 
 Player::Player(
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
 	const std::string &pathToFragSource,
-	std::vector<double> elevation)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource, elevation} {}
+	const glm::vec3 &initialPosition)
+	: GameObject{pathToObj, pathToVertSource, pathToFragSource, initialPosition} {}
 
 	
 void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
@@ -186,7 +193,7 @@ void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
 }
 void Player::updatePhysics() {
-	getDynamicObject().incrementPosition();
+	getDynamicObject().incrementPosition(getCollisionState(), getCollisionTarget());
 	setPosition(getDynamicObject().getXPosition(), getDynamicObject().getYPosition());
 }
 std::string Player::getDescription() const {

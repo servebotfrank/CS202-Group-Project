@@ -29,12 +29,12 @@ public:
 	GameObject (
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		std::vector<double> elevation);
+		const glm::vec3 &initialPosition);
 	GameObject(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		std::vector<double> elevation);
+		const glm::vec3 &initialPosition);
 
 	virtual ~GameObject() {}
 
@@ -66,7 +66,7 @@ public:
 	void setCollisionTarget(const std::shared_ptr<GameObject> &collidingWith);
 	void setCollision(bool isColliding);
 	std::shared_ptr<GameObject> getCollisionTarget() const;
-
+	bool getCollisionState() const;
 	void faceLeft();
 	void faceRight();
 
@@ -90,12 +90,12 @@ public:
 	Platform(
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		std::vector<double> elevation);
+		const glm::vec3 &initialPosition);
 	Platform(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		std::vector<double> elevation);
+		const glm::vec3 &initialPosition);
 
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
@@ -110,12 +110,12 @@ public:
 	Player(
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		std::vector<double> elevation);
+		const glm::vec3 &initialPosition);
 	Player(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		std::vector<double> elevation);
+		const glm::vec3 &initialPosition);
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
