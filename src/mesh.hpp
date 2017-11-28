@@ -7,10 +7,11 @@
 #include <sstream>
 #include <unordered_map>
 
-#ifdef __APPLE__
-#include <OpenGL/glew.h>
-#else
+#ifndef Xcode
 #include <GL/glew.h>
+#include <SFML/OpenGL.hpp>
+#else
+#include <OpenGL/gl3.h>
 #endif
 
 #include <SFML/System.hpp>

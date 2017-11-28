@@ -11,15 +11,15 @@
 #include <vector>
 #include <memory>
 
-#ifdef Xcode
-#include <OpenGL/glew.h>
-#else
+#ifndef Xcode
 #include <GL/glew.h>
+#include <SFML/OpenGL.hpp>
+#else
+#include <OpenGL/gl3.h>
 #endif
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp> // sf::image
 
 #include <glm/glm.hpp>

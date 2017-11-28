@@ -49,9 +49,11 @@ void Game::initSFMLStates() {
 	window_.setActive();
 }
 void Game::initOpenGLStates() const {
+#ifndef Xcode
 	glewExperimental = GL_TRUE; // tells glew to use the newest features, features from opengl 3.3 and higher
 								// else glew only loads features from 1.1 to 3.2
 	GLenum glewErr = glewInit(); // loads opengl extensions
+#endif
 	if(glewErr != GLEW_OK) {
 		throw std::runtime_error("Error::glewInit()::failed");
 	}
