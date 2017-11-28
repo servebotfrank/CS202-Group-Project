@@ -1,6 +1,6 @@
 /*
 	A class prototype that manages the creation of game objects
-	Ensures that there are not multiple copies of resources
+	Ensures that there are not multiple copies of shaders or meshes
 */
 
 #ifndef GAME_OBJECT_FACTORY_H_P_P
@@ -21,7 +21,7 @@ class GameObjectFactory {
 public:
 	GameObjectFactory();
 
-	std::unique_ptr<GameObject> make(
+	std::shared_ptr<GameObject> make(
 		GameObjectTypes objectType,
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,

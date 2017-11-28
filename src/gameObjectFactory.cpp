@@ -3,7 +3,7 @@
 GameObjectFactory::GameObjectFactory()
 	: shaderObjects_(0), meshObjects_(0) {}
 
-std::unique_ptr<GameObject> GameObjectFactory::make(
+std::shared_ptr<GameObject> GameObjectFactory::make(
 	GameObjectTypes objectType,
 	const std::string &pathToObj,
 	const std::string &pathToVertSource,
@@ -42,9 +42,9 @@ std::unique_ptr<GameObject> GameObjectFactory::make(
 
 	switch(objectType) {
 		case GameObjectTypes::PLATFORM:
-			return std::make_unique<Platform>(*meshIterator, *shaderIterator, std::vector<double>(20));
+			return std::make_shared<Platform>(*meshIterator, *shaderIterator, std::vector<double>(20));
 		case GameObjectTypes::PLAYER:
-			return std::make_unique<Player>(*meshIterator, *shaderIterator, std::vector<double>(20));
+			return std::make_shared<Player>(*meshIterator, *shaderIterator, std::vector<double>(20));
 		default:
 			throw std::runtime_error("Error::GameObjectFactory::unreconized enum for game object type");
 			break;
