@@ -38,6 +38,14 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 		playerIterator_ = gameObjects_.begin();
 	}
 }
+
+void Game::loadLevel(const std::string &fileName)
+{
+	std::ifstream input(fileName, std::ios::binary);
+	if(!input)
+	throw std::runtime_error("file not found");
+}
+
 void Game::initSFMLStates() {
 	contextSettings_ = window_.getSettings();
 	sf::Image icon;

@@ -29,6 +29,8 @@ class Game {
 public:
 	Game(std::string title);
 
+	void loadLevel(const std::string &fileName); //we will alter this when we know how we're going to store levels
+
 	void run();
 
 	std::string getDependancyAndAppInfoString() const;
