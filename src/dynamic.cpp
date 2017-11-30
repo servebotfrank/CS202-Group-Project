@@ -78,9 +78,6 @@ double Dynamic_object::getTimingInterval()const
 void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObject> collidingWith)
 {
 	bool collidingBellow = colliding; // temporary - need some type of checking
-	bool collidingAbove = false;
-	bool collidingRight = false;
-	bool collidingLeft = false;
 
 	auto _tempPos=_position;
 	int _tempPosX=_position[0];
