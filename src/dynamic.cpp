@@ -1,7 +1,7 @@
 #include "dynamic.hpp"
 #include "gameObjects.hpp"
 
-Dynamic_object::Dynamic_object(const glm::vec2 &position, std::shared_ptr<const std::vector<double>> elevations)
+Dynamic_object::Dynamic_object(const glm::vec2 &position, std::shared_ptr<std::vector<double>> elevations)
 	: _mass{1},												
 	  _position{position},
 	  _velocity(0),
