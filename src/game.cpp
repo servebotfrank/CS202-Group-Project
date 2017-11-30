@@ -5,7 +5,7 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 			   versionRevision_{Platformer_VERSION_REVISION},
 			   contextSettings_{
 							/*depth_bits*/ 24, /*stencil_bits*/ 8, /*antialiasing_level*/ 4,
-							/*major*/ Platformer_OPENGL_MAJOR,
+							/*major*/ Platformer_OPENGL_MAJOR, /*Requested OpenGL context version*/
 							/*minor*/ Platformer_OPENGL_MINOR },
 			   window_{
 							sf::VideoMode(800, 600), title,
@@ -15,7 +15,8 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 			   objectFactory_{},
 			   fov_{90}, projection_{getProjection()},
 			   camera_{glm::vec3(0.0f,0.0f,10.0f)},
-			   framerateLimit_{30} {
+			   framerateLimit_{30},
+/*temporary*/  elevations_(std::make_shared<std::vector<double>>(20)) {
 
 	std::cout << getDependancyAndAppInfoString() << std::endl;
 	initSFMLStates();
@@ -31,8 +32,8 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 		const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
 		const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
 
-		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, 4, 0)));
-		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_RECTANGLE, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, -2, 0)));
+		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, 4, 0), elevations_));
+		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_RECTANGLE, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, -2, 0), elevations_));
 
 		playerIterator_ = gameObjects_.begin();
 	}
@@ -53,10 +54,10 @@ void Game::initOpenGLStates() const {
 	glewExperimental = GL_TRUE; // tells glew to use the newest features, features from opengl 3.3 and higher
 								// else glew only loads features from 1.1 to 3.2
 	GLenum glewErr = glewInit(); // loads opengl extensions
-#endif
 	if(glewErr != GLEW_OK) {
 		throw std::runtime_error("Error::glewInit()::failed");
 	}
+#endif
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // sets tha background to black
 	glEnable(GL_DEPTH_TEST); // draws faces behind appropriate faces instead of drawing the most recently process face infront of all other faces
 	glEnable(GL_CULL_FACE);

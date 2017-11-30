@@ -7,7 +7,7 @@
 #include <string>
 #include <algorithm>
 
-#ifndef Xcode
+#ifndef __APPLE__
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 #else
@@ -30,12 +30,14 @@ public:
 	GameObject (
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		const glm::vec3 &initialPosition);
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 	GameObject(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		const glm::vec3 &initialPosition);
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 
 	virtual ~GameObject() {}
 
@@ -91,12 +93,14 @@ public:
 	Platform(
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		const glm::vec3 &initialPosition);
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 	Platform(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		const glm::vec3 &initialPosition);
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
@@ -111,12 +115,14 @@ public:
 	Player(
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		const glm::vec3 &initialPosition);
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 	Player(
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		const glm::vec3 &initialPosition);
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;

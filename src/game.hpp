@@ -11,7 +11,7 @@
 #include <vector>
 #include <memory>
 
-#ifndef Xcode
+#ifndef __APPLE__
 #include <GL/glew.h>
 #include <SFML/OpenGL.hpp>
 #else
@@ -52,6 +52,8 @@ private:
 	Camera camera_;
 
 	uint16_t framerateLimit_;
+
+	std::shared_ptr<const std::vector<double>> elevations_;
 
 	void initSFMLStates();
 	void initOpenGLStates() const;

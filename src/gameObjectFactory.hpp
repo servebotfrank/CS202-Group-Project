@@ -26,7 +26,8 @@ public:
 		const std::string &pathToObj,
 		const std::string &pathToVertSource,
 		const std::string &pathToFragSource,
-		const glm::vec3 &initialPosition );
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<const std::vector<double>> elevations);
 
 	void cleanUp(); // deletes shaders and meshes with only 1 owner - if this is
 					// the owner
