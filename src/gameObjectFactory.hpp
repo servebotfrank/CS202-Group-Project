@@ -15,8 +15,6 @@
 #include "mesh.hpp"
 #include "gameObjects.hpp"
 
-enum class GameObjectTypes { PLATFORM, PLAYER };
-
 class GameObjectFactory {
 public:
 	GameObjectFactory();
