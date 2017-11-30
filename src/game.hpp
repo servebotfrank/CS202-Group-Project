@@ -11,10 +11,12 @@
 #include <vector>
 #include <memory>
 
-
-
-
-#include <OpenGL/gl3.h>
+#ifdef __linux__
+	#include <GL/glew.h>
+	#include <SFML/OpenGL.hpp>
+#else
+	#include <OpenGL/gl3.h>
+#endif
 
 
 #include <SFML/System.hpp>

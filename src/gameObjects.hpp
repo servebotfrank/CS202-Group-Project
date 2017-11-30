@@ -7,11 +7,11 @@
 #include <string>
 #include <algorithm>
 
-#ifndef __APPLE__
-#include <GL/glew.h>
-#include <SFML/OpenGL.hpp>
+#ifdef __linux__
+	#include <GL/glew.h>
+	#include <SFML/OpenGL.hpp>
 #else
-#include <OpenGL/gl3.h>
+	#include <OpenGL/gl3.h>
 #endif
 
 #include <SFML/System.hpp>
