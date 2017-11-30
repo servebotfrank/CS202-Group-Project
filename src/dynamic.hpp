@@ -16,13 +16,13 @@ class Dynamic_object
 {
 private:
 	double _mass;
-	std::shared_ptr<std::vector<double>> _elevations;
-	std::vector<bool> _elevationFlags;
 	glm::vec2 _position;
 	glm::vec2 _velocity;
+	const double _timingInterval; // set to whatever the timing interval is in the initializer list
+	std::shared_ptr<std::vector<double>> _elevations;
+	std::vector<bool> _elevationFlags;
 	int _lastX;
 
-	const double _timingInterval; // set to whatever the timing interval is in the initializer list
 public:
 	Dynamic_object(const glm::vec2 &position, std::shared_ptr<std::vector<double>> elevations);
 
