@@ -92,6 +92,10 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 	_position[0]+=_velocity[0]*_timingInterval;
 	_position[1]+=_velocity[1]*_timingInterval;
 
+	if(_position[1]>_elevations->at(_tempPosX))
+	{
+		_velocity[1]-=9.806*_timingInterval;
+	}
 	if(_position[1]<_elevations->at(_tempPosX))
 	{
 		if(_elevationFlags[_tempPosX])
