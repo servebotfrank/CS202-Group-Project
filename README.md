@@ -12,7 +12,7 @@ __Authors__
 
 * Kyle Jones
 
-* Bradely Morton
+* Bradley Morton
 
 # Build Instructions
 ---
@@ -55,14 +55,12 @@ now run the program
 ---
 ### TO DO 
 (In no particular order)
-1) Implement Bradley's physics engine
-2) Implement a jump
-3) Possibly work in Bounding boxes for AABB - AABB collision detection (See LearnOpengl 3.3 pdf, page 490)
+1) Possibly work in Bounding boxes for AABB - AABB collision detection (See LearnOpengl 3.3 pdf, page 490)
 	-Re-allign models to first quandrant in Blender Export, for consistency in bounds checking.
-4) Get user input via text parser	//JakeF: Working on this
+2) Get user input via text parser	//JakeF: Working on this
+3) Level loader
 
 Non-Essential Targets
 1) Set up music
 2) Make fancy shaders
 3) Add more models
-4) Add icon for program
