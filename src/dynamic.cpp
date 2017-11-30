@@ -1,14 +1,14 @@
 #include "dynamic.hpp"
 #include "gameObjects.hpp"
 
-Dynamic_object::Dynamic_object(const glm::vec2 &position, const std::vector<double> &elevations)
-	: _mass{1},
+Dynamic_object::Dynamic_object(const glm::vec2 &position, std::shared_ptr<const std::vector<double>> elevations)
+	: _mass{1},												
 	  _position{position},
 	  _velocity(0),
 	  _timingInterval{1.0/30.0},
 	  _elevations(elevations),
-	  _elevationFlags(elevations.size()),
-	  _lastX=0
+	  _elevationFlags(elevations->size()),
+	  _lastX(0)
 {}
 void Dynamic_object::setMass(double mass)
 {
@@ -84,7 +84,7 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 
 	auto _tempPos=_position;
 	int _tempPosX=_position[0];
-	if(_position[1]>_elevations[_tempPosX])
+	if(_position[1]>_elevations->at(_tempPosX))
 	{
 		_elevationFlags[_tempPosX]=1; //flags check if you have been over a terrain point; if you have, then you can land on it
 	}
@@ -92,11 +92,11 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 	_position[0]+=_velocity[0]*_timingInterval;
 	_position[1]+=_velocity[1]*_timingInterval;
 
-	if(_position[1]<_elevations[_tempPosX])
+	if(_position[1]<_elevations->at(_tempPosX))
 	{
 		if(_elevationFlags[_tempPosX])
 		{
-			_position[1]=_elevations[_tempPosX];
+			_position[1]=_elevations->at(_tempPosX);
 		}
 		else
 		{

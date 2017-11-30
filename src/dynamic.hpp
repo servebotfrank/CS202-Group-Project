@@ -16,7 +16,7 @@ class Dynamic_object
 {
 private:
 	double _mass;
-	std::vector<double> _elevations;
+	std::shared_ptr<const std::vector<double>> _elevations;
 	std::vector<bool> _elevationFlags;
 	glm::vec2 _position;
 	glm::vec2 _velocity;
@@ -24,7 +24,7 @@ private:
 
 	const double _timingInterval; // set to whatever the timing interval is in the initializer list
 public:
-	Dynamic_object(const glm::vec2 &position, const std::vector<double> &elevations);
+	Dynamic_object(const glm::vec2 &position, std::shared_ptr< const std::vector<double>> elevations);
 
 	// mutators
 	void setMass(double mass);
