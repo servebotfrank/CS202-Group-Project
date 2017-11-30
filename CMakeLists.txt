@@ -29,6 +29,9 @@ set(PROJECT_ROOT_DIR "${PROJECT_SOURCE_DIR}")
 set(PROJECT_SOURCE_DIR "${PROJECT_ROOT_DIR}/src")
 include_directories("${PROJECT_SOURCE_DIR}")
 
+message("> root directory: ${PROJECT_ROOT_DIR}")
+message("> include/source directory: ${PROJECT_SOURCE_DIR}")
+
 # Application Name
 set(EXECUTABLE_NAME "platformer")
 # Application Version
