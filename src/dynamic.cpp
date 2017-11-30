@@ -7,7 +7,8 @@ Dynamic_object::Dynamic_object(const glm::vec2 &position, const std::vector<doub
 	  _velocity(0),
 	  _timingInterval{1.0/30.0},
 	  _elevations(elevations),
-	  _elevationFlags(elevations.size())
+	  _elevationFlags(elevations.size()),
+	  _lastX=0
 {}
 void Dynamic_object::setMass(double mass)
 {
@@ -102,7 +103,11 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 			_position=_tempPos;
 		}
 	}
-
+	if(_lastX!=_tempPosX)
+	{
+		_elevationFlags[_lastX]=0;
+	}
+	_lastX=_tempPosX;
 
 
 	// if(collidingBellow)
