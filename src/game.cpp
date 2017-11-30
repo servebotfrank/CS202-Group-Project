@@ -155,16 +155,14 @@ void Game::processEvents() {
 			case sf::Event::KeyPressed:
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 					(*playerIterator_)->faceLeft();
-					std::cout<<"about to call function to set xy velocities"<<std::endl;
-					(*playerIterator_)->getDynamicObject().setXVelocity(-0.5);
+					(*playerIterator_)->getDynamicObject().setXVelocity(-1.0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 					(*playerIterator_)->faceRight();
-					std::cout<<"about to call function to set xy velocities"<<std::endl;
-					(*playerIterator_)->getDynamicObject().setXVelocity(0.5);
+					(*playerIterator_)->getDynamicObject().setXVelocity(1.0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					
+					(*playerIterator_)->getDynamicObject().setYVelocity(1.0);
 				} else {
 					help();
 				}
