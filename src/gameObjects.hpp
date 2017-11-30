@@ -25,17 +25,13 @@
 #include "shader.hpp"
 #include "dynamic.hpp"
 
+enum class GameObjectTypes { PLATFORM, PLAYER };
+
 class GameObject {
 public:
 	GameObject (
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
-		const glm::vec3 &initialPosition,
-		std::shared_ptr<const std::vector<double>> elevations);
-	GameObject(
-		const std::string &pathToObj,
-		const std::string &pathToVertSource,
-		const std::string &pathToFragSource,
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<const std::vector<double>> elevations);
 
@@ -44,6 +40,7 @@ public:
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const = 0;
 	virtual void updatePhysics() = 0;
 	virtual std::string getDescription() const = 0;
+	virtual GameObjectTypes getType() const = 0;
 
 	unsigned int getShaderProgram() const;
 	unsigned int getVAO() const;
@@ -75,6 +72,7 @@ public:
 
 	Dynamic_object& getDynamicObject();
 private:
+	GameObjectTypes type_;
 	std::shared_ptr<Mesh> mesh_;
 	std::shared_ptr<Shader> shader_;
 	glm::mat4 modelTransform_;
@@ -95,17 +93,11 @@ public:
 		std::shared_ptr<Shader> shader,
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<const std::vector<double>> elevations);
-	Platform(
-		const std::string &pathToObj,
-		const std::string &pathToVertSource,
-		const std::string &pathToFragSource,
-		const glm::vec3 &initialPosition,
-		std::shared_ptr<const std::vector<double>> elevations);
-
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
 	virtual std::string getDescription() const override;
+	virtual GameObjectTypes getType() const override;
 private:
 
 };
@@ -117,16 +109,11 @@ public:
 		std::shared_ptr<Shader> shader,
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<const std::vector<double>> elevations);
-	Player(
-		const std::string &pathToObj,
-		const std::string &pathToVertSource,
-		const std::string &pathToFragSource,
-		const glm::vec3 &initialPosition,
-		std::shared_ptr<const std::vector<double>> elevations);
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
 	virtual std::string getDescription() const override;
+	virtual GameObjectTypes getType() const override;
 };
 
 

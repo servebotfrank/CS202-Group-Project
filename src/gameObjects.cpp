@@ -13,20 +13,6 @@ GameObject::GameObject(
 	setPosition(initialPosition);
 }
 
-GameObject::GameObject(
-	const std::string &pathToObj,
-	const std::string &pathToVertSource,
-	const std::string &pathToFragSource,
-	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations) :
-	mesh_{std::make_shared<Mesh>(pathToObj)},
-	shader_{std::make_shared<Shader>(pathToVertSource, pathToFragSource)},
-	modelTransform_{},
-	dynamicObject_{glm::vec2(initialPosition[0], initialPosition[1]), elevations},
-	width_{1}, height_{1} {
-	setPosition(initialPosition);
-}
-
 unsigned int GameObject::getShaderProgram() const {
 	return shader_->getShaderProgram();
 }
@@ -139,21 +125,13 @@ Dynamic_object& GameObject::getDynamicObject() {
 
 
 
+
 Platform::Platform(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
 	const glm::vec3 &initialPosition,
 	std::shared_ptr<const std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
-
-Platform::Platform(
-	const std::string &pathToObj,
-	const std::string &pathToVertSource,
-	const std::string &pathToFragSource,
-	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource, initialPosition, elevations} {}
-
 
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glUseProgram(getShaderProgram());
@@ -171,6 +149,12 @@ void Platform::updatePhysics() {
 std::string Platform::getDescription() const {
 	return "Platform";
 }
+GameObjectTypes Platform::getType() const {
+	return GameObjectTypes::PLATFORM;
+}
+
+
+
 
 Player::Player(
 	std::shared_ptr<Mesh> mesh,
@@ -179,15 +163,6 @@ Player::Player(
 	std::shared_ptr<const std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
-Player::Player(
-	const std::string &pathToObj,
-	const std::string &pathToVertSource,
-	const std::string &pathToFragSource,
-	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations)
-	: GameObject{pathToObj, pathToVertSource, pathToFragSource, initialPosition, elevations} {}
-
-	
 void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	glUseProgram(getShaderProgram());
 
@@ -205,6 +180,8 @@ void Player::updatePhysics() {
 std::string Player::getDescription() const {
 	return "Player";
 }
-
+GameObjectTypes Player::getType() const {
+	return GameObjectTypes::PLAYER;
+}
 
 
