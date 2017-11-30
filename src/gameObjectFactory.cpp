@@ -9,7 +9,7 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 	const std::string &pathToVertSource,
 	const std::string &pathToFragSource,
 	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations) {
+	std::shared_ptr<std::vector<double>> elevations) {
 
 	bool foundMesh = false;
 	auto meshIterator = meshObjects_.begin();

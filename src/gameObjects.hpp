@@ -33,7 +33,7 @@ public:
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
 		const glm::vec3 &initialPosition,
-		std::shared_ptr<const std::vector<double>> elevations);
+		std::shared_ptr<std::vector<double>> elevations);
 
 	virtual ~GameObject() {}
 
@@ -92,7 +92,7 @@ public:
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
 		const glm::vec3 &initialPosition,
-		std::shared_ptr<const std::vector<double>> elevations);
+		std::shared_ptr<std::vector<double>> elevations);
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;
@@ -108,7 +108,7 @@ public:
 		std::shared_ptr<Mesh> mesh,
 		std::shared_ptr<Shader> shader,
 		const glm::vec3 &initialPosition,
-		std::shared_ptr<const std::vector<double>> elevations);
+		std::shared_ptr<std::vector<double>> elevations);
 
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
 	virtual void updatePhysics() override;

@@ -29,7 +29,8 @@ class Game {
 public:
 	Game(std::string title);
 
-	void loadLevel(const std::string &fileName); //we will alter this when we know how we're going to store levels
+	void loadLevel(const std::string &pathToFile);
+	void saveLevel(const std::string &pathToFile);
 
 	void run();
 
@@ -55,7 +56,7 @@ private:
 
 	uint16_t framerateLimit_;
 
-	std::shared_ptr<const std::vector<double>> elevations_;
+	std::shared_ptr<std::vector<double>> elevations_;
 
 	void initSFMLStates();
 	void initOpenGLStates() const;

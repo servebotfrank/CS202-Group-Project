@@ -4,7 +4,7 @@ GameObject::GameObject(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
 	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations) :
+	std::shared_ptr<std::vector<double>> elevations) :
 	mesh_(mesh),
 	shader_(shader),
 	modelTransform_{},
@@ -130,7 +130,7 @@ Platform::Platform(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
 	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations)
+	std::shared_ptr<std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
@@ -160,7 +160,7 @@ Player::Player(
 	std::shared_ptr<Mesh> mesh,
 	std::shared_ptr<Shader> shader,
 	const glm::vec3 &initialPosition,
-	std::shared_ptr<const std::vector<double>> elevations)
+	std::shared_ptr<std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
 void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
