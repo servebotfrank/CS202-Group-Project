@@ -1,6 +1,6 @@
 #ifndef GAME_H_P_P
 #define GAME_H_P_P
-
+#include <GL/glew.h>
 #include "platformerConfig.hpp"
 #include "gameObjects.hpp"
 #include "camera.hpp"
@@ -11,12 +11,11 @@
 #include <vector>
 #include <memory>
 
-#ifndef __APPLE__
-#include <GL/glew.h>
-#include <SFML/OpenGL.hpp>
-#else
+
+
+
 #include <OpenGL/gl3.h>
-#endif
+
 
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
