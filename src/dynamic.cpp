@@ -1,13 +1,13 @@
 #include "dynamic.hpp"
 #include "gameObjects.hpp"
 
-Dynamic_object::Dynamic_object(const glm::vec2 &position)
+Dynamic_object::Dynamic_object(const glm::vec2 &position, const std::vector<double> &elevations)
 	: _mass{1},
 	  _position{position},
 	  _velocity(0),
-	  _acceleration(0),
 	  _timingInterval{1.0/30.0},
-	  _accelerationDueToGravity{-9.806}
+	  _elevations(elevations),
+	  _elevationFlags(elevations.size())
 {}
 void Dynamic_object::setMass(double mass)
 {
@@ -37,19 +37,6 @@ void Dynamic_object::setVelocity(const glm::vec2 &velocity)
 {
 	_velocity = velocity;
 }
-void Dynamic_object::setXAcceleration(double xAcceleration)
-{
-	_acceleration[0] = xAcceleration;
-}
-void Dynamic_object::setYAcceleration(double yAcceleration)
-{
-	_acceleration[1] = yAcceleration;
-}
-void Dynamic_object::setAcceleration(const glm::vec2 &acceleration)
-{
-	_acceleration = acceleration;
-}
-
 double Dynamic_object::getMass()const
 {
 	return _mass;
@@ -57,10 +44,6 @@ double Dynamic_object::getMass()const
 glm::vec2 Dynamic_object::getMomentum()const
 {
 	return _velocity * static_cast<float>(_mass);
-}
-glm::vec2 Dynamic_object::getForce()const
-{
-	return _acceleration * static_cast<float>(_mass);
 }
 double Dynamic_object::getXPosition()const
 {
@@ -86,25 +69,9 @@ glm::vec2 Dynamic_object::getVelocity()const
 {
 	return _velocity;
 }
-double Dynamic_object::getXAcceleration()const
-{
-	return _acceleration[0];
-}
-double Dynamic_object::getYAcceleration()const
-{
-	return _acceleration[1];
-}
-glm::vec2 Dynamic_object::getAcceleration()const
-{
-	return _acceleration;
-}
 double Dynamic_object::getTimingInterval()const
 {
 	return _timingInterval;
-}
-double Dynamic_object::getAccelerationDueToGravity()const
-{
-	return _accelerationDueToGravity;
 }
 
 void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObject> collidingWith)
@@ -114,32 +81,55 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 	bool collidingRight = false;
 	bool collidingLeft = false;
 
-	if(collidingBellow)
+	auto _tempPos=_position;
+	int _tempPosX=_position[0];
+	if(_position[1]>_elevations[_tempPosX])
 	{
-		
+		_elevationFlags[_tempPosX]=1; //flags check if you have been over a terrain point; if you have, then you can land on it
 	}
-	else if(collidingAbove) {
-		
-	}
-	else
+
+	_position[0]+=_velocity[0]*_timingInterval;
+	_position[1]+=_velocity[1]*_timingInterval;
+
+	if(_position[1]<_elevations[_tempPosX])
 	{
-		_acceleration[1] += _accelerationDueToGravity;
-		_velocity[1] += _acceleration[1] * _timingInterval;
-		_position[1] += _velocity[1] * _timingInterval;
+		if(_elevationFlags[_tempPosX])
+		{
+			_position[1]=_elevations[_tempPosX];
+		}
+		else
+		{
+			_position=_tempPos;
+		}
 	}
+
+
+
+	// if(collidingBellow)
+	// {
+		
+	// }
+	// else if(collidingAbove) {
+		
+	// }
+	// else
+	// {
+	// 	_velocity[1] += -9.806 * _timingInterval;
+	// 	_position[1] += _velocity[1] * _timingInterval;
+	// }
 	
-	if(collidingLeft)
-	{
+	// if(collidingLeft)
+	// {
 		
-	}
-	else if(collidingRight)
-	{
+	// }
+	// else if(collidingRight)
+	// {
 		
-	}
-	else
-	{
-		_position[0] += _velocity[0] * _timingInterval;
-	}
+	// }
+	// else
+	// {
+	// 	_position[0] += _velocity[0] * _timingInterval;
+	// }
 }
 
 

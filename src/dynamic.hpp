@@ -16,14 +16,15 @@ class Dynamic_object
 {
 private:
 	double _mass;
+	std::vector<double> _elevations;
+	std::vector<bool> _elevationFlags;
 	glm::vec2 _position;
 	glm::vec2 _velocity;
-	glm::vec2 _acceleration;
+	int _lastX;
 
 	const double _timingInterval; // set to whatever the timing interval is in the initializer list
-	const double _accelerationDueToGravity;
 public:
-	Dynamic_object(const glm::vec2 &position);
+	Dynamic_object(const glm::vec2 &position, const std::vector<double> &elevations);
 
 	// mutators
 	void setMass(double mass);
@@ -36,14 +37,10 @@ public:
 	void setYVelocity(double yVelocity);
 	void setVelocity(const glm::vec2 &velocity);
 
-	void setXAcceleration(double xAcceleration);
-	void setYAcceleration(double yAcceleration);
-	void setAcceleration(const glm::vec2 &acceleration);
 
 	// accessors
 	double getMass()const;
 	glm::vec2 getMomentum()const;
-	glm::vec2 getForce()const;
 
 	double getXPosition()const;
 	double getYPosition()const;
@@ -53,12 +50,8 @@ public:
 	double getYVelocity()const;
 	glm::vec2 getVelocity()const;
 
-	double getXAcceleration()const;
-	double getYAcceleration()const;
-	glm::vec2 getAcceleration()const;
 
 	double getTimingInterval()const;
-	double getAccelerationDueToGravity()const;
 
 
 	void incrementPosition(bool colliding, std::shared_ptr<GameObject> collidingWith);
