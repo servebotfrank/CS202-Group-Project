@@ -104,7 +104,7 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 		}
 		else
 		{
-			std::cout<<"in the improper location area xpos= "<<_position[0]<<" elevation= "<<_position[1]<<" checking against elevation="<<_elevations->at(_tempPosX)<<std::endl;
+			_velocity[0]=0;
 			_position=_tempPos;
 		}
 	}
