@@ -30,9 +30,6 @@ class Game {
 public:
 	Game(std::string title);
 
-	void loadLevel(const std::string &pathToFile);
-	void saveLevel(const std::string &pathToFile);
-
 	void run();
 
 	std::string getDependancyAndAppInfoString() const;
@@ -67,6 +64,11 @@ private:
 	void processEvents();
 	void update();
 	void checkCollisions() const;
+
+	void loadLevel(const std::string &pathToFile);
+	void saveLevel(const std::string &pathToFile);
+	void loadGameObject(std::ifstream &input, GameObjectTypes type);
+	void saveGameObject();
 
 	void draw() const;
 	void swapFrameBuffers();

@@ -14,42 +14,133 @@ Game::Game(std::string title) : versionMajor_{Platformer_VERSION_MAJOR},
 			   gameObjects_(0),
 			   objectFactory_{},
 			   fov_{90}, projection_{getProjection()},
-			   camera_{glm::vec3(0.0f,0.0f,10.0f)},
+			   camera_{glm::vec3(0.0f,3.0f,10.0f)},
 			   framerateLimit_{30},
-/*temporary*/  elevations_(std::make_shared<std::vector<double>>(20)) {
+/*temporary*/  elevations_(std::make_shared<std::vector<double>>())
+{
 
 	std::cout << getDependancyAndAppInfoString() << std::endl;
 	initSFMLStates();
 	initOpenGLStates();
 
-	// temporary
-	{
-		const std::string PATH_TO_PLAYER = "../res/models/playerTemp.obj";
-		const std::string PATH_TO_BACKGROUND = "../res/models/background00.obj";
-		const std::string PATH_TO_RECTANGLE = "../res/models/platformRectangle.obj";
-		const std::string PATH_TO_PLAYER_VERT_SOURCE = "../res/shaders/playerShaderVertex.vert";
-		const std::string PATH_TO_PLAYER_FRAG_SOURCE ="../res/shaders/playerShaderFragment.frag";
-		const std::string PATH_TO_VERT_SOURCE = "../res/shaders/simpleVertex.vert";
-		const std::string PATH_TO_FRAG_SOURCE = "../res/shaders/simpleFragment.frag";
-
-		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLAYER, PATH_TO_PLAYER, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, 4, 0), elevations_));
-		gameObjects_.push_back(objectFactory_.make(GameObjectTypes::PLATFORM, PATH_TO_RECTANGLE, PATH_TO_VERT_SOURCE, PATH_TO_FRAG_SOURCE, glm::vec3(0, -2, 0), elevations_));
-
-		playerIterator_ = gameObjects_.begin();
-	}
+	const std::string one = "../levels/level_one.txt";
+	loadLevel(one);
+	playerIterator_ = gameObjects_.begin();
 }
 
-void loadLevel(const std::string &pathToFile) {
+void Game::loadLevel(const std::string &pathToFile) {
 	std::ifstream input(pathToFile);
 	if(!input) {
 		throw std::runtime_error("Error::ifstream() file not found");
 	}
+
+	std::string line;
+	while(getline(input, line)) {
+		//std::cout << "processing line: " << line << std::endl;
+		std::stringstream ss(line);
+		std::string word;
+		while(ss >> word) {
+			//std::cout << "processing word: " << word << std::endl;
+			if(word == "Player") {
+				loadGameObject(input, GameObjectTypes::PLAYER);
+			} else if(word == "Platform") {
+				loadGameObject(input, GameObjectTypes::PLATFORM);
+			} else if(word == "Enemy") {
+				loadGameObject(input, GameObjectTypes::PLATFORM);
+			} else {
+				if(word == "elevations") {
+					elevations_->reserve(100);
+					while(ss >> word) {
+						//std::cout << word << std::endl;
+						elevations_->push_back(std::stod(word));
+					}
+					/*
+					std::cout << "Elevations Loaded: ";
+					for(size_t x = 0; x < elevations_->size(); ++x) {
+						std::cout << (*elevations_)[x] << " ";
+					}
+					*/
+				}
+			}
+		}
+	}
 }
-void saveLevel(const std::string &pathToFile) {
+void Game::loadGameObject(std::ifstream &input, GameObjectTypes type) {
+	std::string pathToMesh;
+	std::string pathToVertexShaderSrc;
+	std::string pathToFragShaderSrc;
+	glm::vec3 initialPosition;
+	std::string line;
+	bool foundPosition = false;
+	while(getline(input, line)) {
+		std::stringstream ss(line);
+		std::string word;
+		while(ss >> word) {
+			if(word == "mesh") {
+				if(ss >> word) {
+					pathToMesh = word;
+					//std::cout << "found mesh: " << pathToMesh << std::endl;
+				} else {
+					throw std::runtime_error("Error::loadGameObject() path to .obj not found");
+				}
+			} else if(word == "vert") {
+				if(ss >> word) {
+					pathToVertexShaderSrc = word;
+					//std::cout << "found vert: " << pathToVertexShaderSrc << std::endl;
+				} else {
+					throw std::runtime_error("Error::loadGameObject() path to vertex shader not found");
+				}
+			} else if(word == "frag") {
+				if(ss >> word) {
+					pathToFragShaderSrc = word;
+					//std::cout << "found frag: " << pathToFragShaderSrc << std::endl;
+				} else {
+					throw std::runtime_error("Error::loadGameObject() path to fragment shader not found");
+				}
+			} else if(word == "pos") {
+				float x, y, z;
+				if(ss >> word) {
+					x = std::stof(word);
+					if(ss >> word) {
+						y = std::stof(word);
+						if(ss >> word) {
+							z = std::stof(word);
+						} else {
+							z = 0;
+						}
+						initialPosition = glm::vec3(x, y, z);
+						foundPosition = true;
+						//std::cout << "found pos: " << x << " " << y << " " << z << std::endl;
+					} else {
+						throw std::runtime_error("Error::loadGameObject() initial y position not found");
+					}
+				} else {
+					throw std::runtime_error("Error::loadGameObject() initial x position not found");
+				}
+			} else if(word == "end" || (foundPosition && !pathToMesh.empty() && !pathToVertexShaderSrc.empty() && !pathToFragShaderSrc.empty())){
+				gameObjects_.push_back(objectFactory_.make(
+					type,
+					pathToMesh,
+					pathToVertexShaderSrc,
+					pathToFragShaderSrc,
+					initialPosition,
+					elevations_
+				));
+				std::cout << "added object: " << gameObjects_.back()->getDescription() << std::endl;
+				return;
+			} else {
+				throw std::runtime_error("Error::loadGameObject() incomplete or wrongly formated data");
+			}
+		}
+	}
+}
+void Game::saveLevel(const std::string &pathToFile) {
 	std::ofstream output(pathToFile);
 	if(!output) {
 		throw std::runtime_error("Error::ifstream() file not found");
 	}
+
+	std::string line;
 }
 void Game::initSFMLStates() {
 	contextSettings_ = window_.getSettings();
@@ -219,7 +310,7 @@ void Game::checkCollisions() const {
 				bool collidingY = (*firstObjectIt)->getPosition()[1] + (*firstObjectIt)->getWidth() >= (*secondObjectIterator)->getPosition()[1] && (*secondObjectIterator)->getPosition()[1] + (*secondObjectIterator)->getWidth() >= (*firstObjectIt)->getPosition()[1];
 				bool colliding = collidingX && collidingY;
 				if(colliding) {
-					std::cout << (*firstObjectIt)->getDescription() << " is colliding with " << (*secondObjectIterator)->getDescription() << std::endl;
+					//std::cout << (*firstObjectIt)->getDescription() << " is colliding with " << (*secondObjectIterator)->getDescription() << std::endl;
 					(*firstObjectIt)->setCollisionTarget(*secondObjectIterator);
 					(*secondObjectIterator)->setCollisionTarget(*firstObjectIt);
 				} else {
