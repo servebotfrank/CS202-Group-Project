@@ -1,6 +1,5 @@
 #ifndef GAME_H_P_P
 #define GAME_H_P_P
-#include <GL/glew.h>
 #include "platformerConfig.hpp"
 #include "gameObjects.hpp"
 #include "camera.hpp"
