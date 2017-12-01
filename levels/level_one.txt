@@ -1,4 +1,4 @@
-elevations 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+elevations 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 Player
 mesh ../res/models/playerTemp.obj
 vert ../res/shaders/simpleVertex.vert
