@@ -17,7 +17,6 @@
 
 
 #include <SFML/System.hpp>
-#include <SFML/OpenGL.hpp>
 
 // while using clang - error "GLM_GTX_hash requires C++11 standard librar...
 #include <glm/glm.hpp>

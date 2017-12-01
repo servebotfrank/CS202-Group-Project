@@ -144,17 +144,17 @@ void Game::saveLevel(const std::string &pathToFile) {
 }
 void Game::initSFMLStates() {
 	contextSettings_ = window_.getSettings();
-	sf::Image icon;
-	if(!icon.loadFromFile("../res/textures/icon.png")) {
+	//sf::Image icon;
+	//if(!icon.loadFromFile("../res/textures/icon.png")) {
 		throw std::runtime_error("Error::LoadFromFile()::failed to load icon");
 	}
-	window_.setIcon(128, 128, icon.getPixelsPtr()); // icon not showing on Ubuntu Gnome
+	//window_.setIcon(128, 128, icon.getPixelsPtr()); // icon not showing on Ubuntu Gnome
 //	window_.setVerticalSyncEnabled(true);
 	window_.setFramerateLimit(framerateLimit_);
 	window_.setActive();
 }
 void Game::initOpenGLStates() const {
-#ifndef Xcode
+#ifdef __LINUX__
 	glewExperimental = GL_TRUE; // tells glew to use the newest features, features from opengl 3.3 and higher
 								// else glew only loads features from 1.1 to 3.2
 	GLenum glewErr = glewInit(); // loads opengl extensions
@@ -209,11 +209,12 @@ std::string Game::getDependancyAndAppInfoString() const {
 		std::to_string(SFML_VERSION_MINOR) + "." +
 		std::to_string(SFML_VERSION_PATCH) + "\n" +
 
-		"GLEW Version: " +
+#ifdef __Linux__
+        "GLEW Version: " +
 		std::to_string(GLEW_VERSION_MAJOR) + "." +
 		std::to_string(GLEW_VERSION_MINOR) + "." +
 		std::to_string(GLEW_VERSION_MICRO) + "\n" +
-
+#endif
 		"OpenGL Version: ";
 		std::string openGLVersion = reinterpret_cast<const char *>(glGetString(GL_VERSION));
 		versionsString += openGLVersion;
