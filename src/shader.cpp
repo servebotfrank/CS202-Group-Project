@@ -34,13 +34,13 @@ void Shader::setUniformMat4(const std::string &name, const glm::mat4 &mat) const
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram_, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 void Shader::setUniformVec2(const std::string &name, const glm::vec2 &vec) const {
-	glUniform2fv(glGetUniformLocation(shaderProgram_, name.c_str()), 2, &vec[0]);
+	glUniform2fv(glGetUniformLocation(shaderProgram_, name.c_str()), 1, &vec[0]);
 }
 void Shader::setUniformVec3(const std::string &name, const glm::vec3 &vec) const {
-	glUniform3fv(glGetUniformLocation(shaderProgram_, name.c_str()), 3, &vec[0]);
+	glUniform3fv(glGetUniformLocation(shaderProgram_, name.c_str()), 1, &vec[0]);
 }
 void Shader::setUniformVec4(const std::string &name, const glm::vec4 &vec) const {
-	glUniform3fv(glGetUniformLocation(shaderProgram_, name.c_str()), 4, &vec[0]);
+	glUniform4fv(glGetUniformLocation(shaderProgram_, name.c_str()), 1, &vec[0]);
 }
 
 std::string Shader::getPathToVertexSource() const {
@@ -65,7 +65,7 @@ unsigned int Shader::compileShader(const std::string &pathToShaderSource, GLenum
 
 	std::fstream fs(pathToShaderSource.c_str(), std::ios::in);
 	if(!fs) {
-		throw std::runtime_error("Error::fstream() failed to open file");
+		throw std::runtime_error("Error::fstream() failed to open file" + pathToShaderSource);
 	}
 
 	{
