@@ -146,8 +146,8 @@ void Game::initSFMLStates() {
 	contextSettings_ = window_.getSettings();
 	//sf::Image icon;
 	//if(!icon.loadFromFile("../res/textures/icon.png")) {
-		throw std::runtime_error("Error::LoadFromFile()::failed to load icon");
-	}
+	//	throw std::runtime_error("Error::LoadFromFile()::failed to load icon");
+	//}
 	//window_.setIcon(128, 128, icon.getPixelsPtr()); // icon not showing on Ubuntu Gnome
 //	window_.setVerticalSyncEnabled(true);
 	window_.setFramerateLimit(framerateLimit_);
