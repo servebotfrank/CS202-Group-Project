@@ -64,6 +64,7 @@ public:
 	float getHeight() const;
 	void setHeight(float height);
 
+	bool getDirection();
 	void setCollisionTarget(const std::shared_ptr<GameObject> &collidingWith);
 	void setCollision(bool isColliding);
 	std::shared_ptr<GameObject> getCollisionTarget() const;
