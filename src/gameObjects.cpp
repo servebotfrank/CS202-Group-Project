@@ -31,6 +31,9 @@ glm::mat4 GameObject::getModelTransform() const {
 void GameObject::setUniformMat4(const std::string &name, const glm::mat4 &mat4) const {
 	shader_->setUniformMat4(name, mat4);
 }
+void GameObject::setUniformVec3(const std::string &name, const glm::vec3 &vec3) const {
+	shader_->setUniformVec3(name, vec3);
+}
 const void* GameObject::getIndiciesData() const {
 	return mesh_->getIndicesData();
 }
@@ -140,6 +143,8 @@ void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	setUniformMat4("view", view);
 	setUniformMat4("model", getModelTransform());
 
+	setUniformVec3("color", glm::vec3(0.1f, 0.2f, 0.2f));
+
 	glBindVertexArray(getVAO());
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
 }
@@ -169,6 +174,8 @@ void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
 	setUniformMat4("projection", perspective);
 	setUniformMat4("view", view);
 	setUniformMat4("model", getModelTransform());
+
+	setUniformVec3("color", glm::vec3(0.2f, 0.3f, 0.9f));
 
 	glBindVertexArray(getVAO());
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);

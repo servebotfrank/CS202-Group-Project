@@ -49,6 +49,7 @@ public:
 	const void* getIndiciesData() const;
 	glm::mat4 getModelTransform() const;
 	void setUniformMat4(const std::string &name, const glm::mat4 &mat4) const;
+	void setUniformVec3(const std::string &name, const glm::vec3 &vec3) const;
 	void setModelTransform(const glm::mat4 &transform);
 	void translate(const glm::vec3 &difference);
 
