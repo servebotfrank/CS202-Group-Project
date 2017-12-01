@@ -120,6 +120,20 @@ void GameObject::faceRight() {
 		modelTransform_ = glm::rotate(modelTransform_, (float)M_PI, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 }
+bool GameObject::getDirection() {
+	glm::vec3 scale;
+	glm::quat rotation;
+	glm::vec3 translation;
+	glm::vec3 skew;
+	glm::vec4 perspective;
+	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
+
+	rotation = glm::conjugate(rotation);
+	if(rotation.y >= 0) {
+		return true;
+	}
+	return false;
+}
 Dynamic_object& GameObject::getDynamicObject() {
 	return dynamicObject_;
 }

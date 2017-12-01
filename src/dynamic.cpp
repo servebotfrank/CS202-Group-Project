@@ -95,12 +95,16 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 	}
 	if(_position[1]<_elevations->at(_tempPosX))
 	{
+		
 		if(_elevationFlags[_tempPosX])
 		{
+
 			_position[1]=_elevations->at(_tempPosX);
+			_velocity[1]=0;
 		}
 		else
 		{
+			_velocity[0]=0;
 			_position=_tempPos;
 		}
 	}
