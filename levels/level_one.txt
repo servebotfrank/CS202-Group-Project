@@ -41,4 +41,10 @@ vert ../res/shaders/simpleVertex.vert
 frag ../res/shaders/simpleFragment.frag
 pos  5 -1 0
 end
+Enemy
+mesh ../res/models/enemy.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos 3 1 0
+end
 
