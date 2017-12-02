@@ -47,19 +47,19 @@ void Game::loadLevel(const std::string &pathToFile) {
 				loadGameObject(input, GameObjectTypes::PLATFORM);
 			} else if(word == "Enemy") {
 				loadGameObject(input, GameObjectTypes::ENEMY);
-				if(word == "elevations") {
-					elevations_->reserve(100);
-					while(ss >> word) {
-						//std::cout << word << std::endl;
-						elevations_->push_back(std::stod(word));
-					}
-					/*
-					std::cout << "Elevations Loaded: ";
-					for(size_t x = 0; x < elevations_->size(); ++x) {
-						std::cout << (*elevations_)[x] << " ";
-					}
-					*/
+			}
+			if(word == "elevations") {
+				elevations_->reserve(100);
+				while(ss >> word) {
+					//std::cout << word << std::endl;
+					elevations_->push_back(std::stod(word));
 				}
+				/*
+				std::cout << "Elevations Loaded: ";
+				for(size_t x = 0; x < elevations_->size(); ++x) {
+					std::cout << (*elevations_)[x] << " ";
+				}
+				*/
 			}
 		}
 	}
