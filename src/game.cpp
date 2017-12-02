@@ -238,6 +238,38 @@ void Game::processCommand() {
 		help();
 	}
 */
+	//LIST OF COMMANDS
+	//move, flip, jump, and stop
+	std::string command;
+	std::cin >> command;
+	if(command == " move" || command == " Move" || command == " MOVE") {
+		//float distance = 0;
+		//std::cin >> distance;
+		//get direction
+		if ((*playerIterator_)->getDirection() == true)
+		(*playerIterator_)->getDynamicObject().setXVelocity(1.0);
+		else
+		(*playerIterator_)->getDynamicObject().setXVelocity(-1.0);
+		//(*playerIterator_)->move(5);
+	} else if(command == " flip" || command == " Flip" || command == " FLIP") {
+		if ((*playerIterator_)->getDirection() == true)
+		(*playerIterator_)->faceLeft();
+		else
+		{
+		(*playerIterator_)->faceLeft();
+		}
+	} else if(command == "jump" || command == "Jump" || command == "JUMP") {
+		std::cout << "Jumping \n";
+		(*playerIterator_)->getDynamicObject().setYVelocity(10.0);
+		std::cout << "JUMPED \n";
+	} else if (command == " stop" || command == " Stop" || command == " STOP")
+	{
+		(*playerIterator_)->getDynamicObject().setXVelocity(0.0);
+	}
+	 else {
+		help();
+	}
+	std::cin.clear();
 }
 
 void Game::help() const {
@@ -259,6 +291,15 @@ void Game::processEvents() {
 			case sf::Event::GainedFocus:
 			case sf::Event::TextEntered:
 			case sf::Event::KeyPressed:
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+					std::cout << "Command recieved... \n";
+					processCommand();
+					std::cout << "Command command completed \n";
+				}
+			else {
+					help();
+				}
+				/*
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 					(*playerIterator_)->faceLeft();
 					(*playerIterator_)->getDynamicObject().setXVelocity(-1.0);
@@ -273,6 +314,7 @@ void Game::processEvents() {
 					help();
 				}
 			break;
+			*/
 			case sf::Event::KeyReleased:
 			case sf::Event::MouseWheelMoved:
 			case sf::Event::MouseWheelScrolled:
