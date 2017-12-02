@@ -11,6 +11,7 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 	const glm::vec3 &initialPosition,
 	std::shared_ptr<std::vector<double>> elevations) {
 
+	std::cout << "mesh" << std::endl;
 	bool foundMesh = false;
 	auto meshIterator = meshObjects_.begin();
 	if(meshObjects_.size() != 0) {
@@ -21,11 +22,13 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 			}
 		}
 	}
+	std::cout << "mesh test" << std::endl;
 	if(!foundMesh) {
 		meshObjects_.push_back(std::make_shared<Mesh>(pathToObj));
 		meshIterator = --meshObjects_.end();
 	}
 
+	std::cout << "shader test" << std::endl;
 	bool foundShader = false;
 	auto shaderIterator = shaderObjects_.begin();
 	if(!meshObjects_.empty()) {
@@ -42,6 +45,7 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 		shaderIterator = --shaderObjects_.end();
 	}
 
+	std::cout << "switch" << std::endl;
 	switch(objectType) {
 		case GameObjectTypes::PLATFORM:
 			return std::make_shared<Platform>(*meshIterator, *shaderIterator, initialPosition, elevations);

@@ -206,3 +206,39 @@ GameObjectTypes Player::getType() const {
 }
 
 
+
+
+
+
+Enemy::Enemy(
+	std::shared_ptr<Mesh> mesh,
+	std::shared_ptr<Shader> shader,
+	const glm::vec3 &initialPosition,
+	std::shared_ptr<std::vector<double>> elevations)
+	: GameObject{mesh, shader, initialPosition, elevations} {}
+
+void Enemy::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
+	glUseProgram(getShaderProgram());
+
+	setUniformMat4("projection", perspective);
+	setUniformMat4("view", view);
+	setUniformMat4("model", getModelTransform());
+
+	//sf::Time t;
+	//float red = std::sin(t.seconds());
+	float red = 1.0;
+	setUniformVec3("color", glm::vec3(red, 0.1f, 0.1f));
+
+	glBindVertexArray(getVAO());
+	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
+}
+void Enemy::updatePhysics() {
+
+}
+std::string Enemy::getDescription() const {
+	return "enemy";
+}
+GameObjectTypes Enemy::getType() const {
+	return GameObjectTypes::ENEMY;
+}
+
