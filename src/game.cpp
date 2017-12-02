@@ -175,6 +175,8 @@ void Game::run() {
 		if(!runningCommand) {
 			processEvents();
 		}
+        
+        camera_.setPosition(glm::vec3( (*playerIterator_)->getXPosition(),(*playerIterator_) -> getYPosition()+3,10));
 
 		checkCollisions();
 		update();
