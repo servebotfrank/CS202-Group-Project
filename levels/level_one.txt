@@ -11,3 +11,34 @@ vert ../res/shaders/simpleVertex.vert
 frag ../res/shaders/simpleFragment.frag
 pos  0 -1 0
 end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  1 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  2 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  3 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  4 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  5 -1 0
+end
+
