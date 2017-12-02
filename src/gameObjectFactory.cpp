@@ -51,6 +51,8 @@ std::shared_ptr<GameObject> GameObjectFactory::make(
 			return std::make_shared<Platform>(*meshIterator, *shaderIterator, initialPosition, elevations);
 		case GameObjectTypes::PLAYER:
 			return std::make_shared<Player>(*meshIterator, *shaderIterator, initialPosition, elevations);
+		case GameObjectTypes::ENEMY:
+			return std::make_shared<Enemy>(*meshIterator, *shaderIterator, initialPosition, elevations);
 		default:
 			throw std::runtime_error("Error::GameObjectFactory::unreconized enum for game object type");
 			break;

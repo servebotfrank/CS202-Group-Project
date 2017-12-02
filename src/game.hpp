@@ -62,7 +62,7 @@ private:
 	void help() const;
 	void processEvents();
 	void update();
-	void checkCollisions() const;
+	void checkCollisions();
 
 	void loadLevel(const std::string &pathToFile);
 	void saveLevel(const std::string &pathToFile);

@@ -46,8 +46,7 @@ void Game::loadLevel(const std::string &pathToFile) {
 			} else if(word == "Platform") {
 				loadGameObject(input, GameObjectTypes::PLATFORM);
 			} else if(word == "Enemy") {
-				loadGameObject(input, GameObjectTypes::PLATFORM);
-			} else {
+				loadGameObject(input, GameObjectTypes::ENEMY);
 				if(word == "elevations") {
 					elevations_->reserve(100);
 					while(ss >> word) {
@@ -154,7 +153,7 @@ void Game::initSFMLStates() {
 	window_.setActive();
 }
 void Game::initOpenGLStates() const {
-#ifdef __LINUX__
+#ifdef __linux__
 	glewExperimental = GL_TRUE; // tells glew to use the newest features, features from opengl 3.3 and higher
 								// else glew only loads features from 1.1 to 3.2
 	GLenum glewErr = glewInit(); // loads opengl extensions
@@ -303,7 +302,7 @@ void Game::update() {
 	}
 }
 
-void Game::checkCollisions() const {
+void Game::checkCollisions()  {
 	if(gameObjects_.size() >= 2) {
 		for(auto firstObjectIt = gameObjects_.begin(); firstObjectIt != gameObjects_.end() - 1; ++firstObjectIt) {
 			for(auto secondObjectIterator = gameObjects_.begin() + 1; secondObjectIterator != gameObjects_.end(); ++secondObjectIterator) {
@@ -314,6 +313,10 @@ void Game::checkCollisions() const {
 					//std::cout << (*firstObjectIt)->getDescription() << " is colliding with " << (*secondObjectIterator)->getDescription() << std::endl;
 					(*firstObjectIt)->setCollisionTarget(*secondObjectIterator);
 					(*secondObjectIterator)->setCollisionTarget(*firstObjectIt);
+					if((*firstObjectIt)->getType() == GameObjectTypes::PLAYER && (*secondObjectIterator)->getType() == GameObjectTypes::ENEMY)
+					{
+						running_=false;
+					}
 				} else {
 					(*firstObjectIt)->setCollision(false);
 					(*secondObjectIterator)->setCollision(false);
