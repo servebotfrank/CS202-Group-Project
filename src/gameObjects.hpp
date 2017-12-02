@@ -23,8 +23,9 @@
 #include "mesh.hpp"
 #include "shader.hpp"
 #include "dynamic.hpp"
+#include <cmath>
 
-enum class GameObjectTypes { PLATFORM, PLAYER };
+enum class GameObjectTypes { PLATFORM, PLAYER, ENEMY };
 
 class GameObject {
 public:
@@ -117,5 +118,18 @@ public:
 	virtual GameObjectTypes getType() const override;
 };
 
+class Enemy : public GameObject {
+public:
+	Enemy(
+		std::shared_ptr<Mesh> mesh,
+		std::shared_ptr<Shader> shader,
+		const glm::vec3 &initialPosition,
+		std::shared_ptr<std::vector<double>> elevations);
+
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
+	virtual void updatePhysics() override;
+	virtual std::string getDescription() const override;
+	virtual GameObjectTypes getType() const override;
+};
 
 #endif
