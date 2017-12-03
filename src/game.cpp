@@ -222,7 +222,7 @@ std::string Game::getDependancyAndAppInfoString() const {
 	return versionsString;
 }
 
-void Game::processCommand() {
+void Game::processCommand(std::string & command) {
 /*
 	std::string command;
 	std::cin >> command;
@@ -240,16 +240,16 @@ void Game::processCommand() {
 */
 	//LIST OF COMMANDS
 	//move, flip, jump, and stop
-	std::string command;
-	std::cin >> command;
+	//std::string command;
+	//std::cin >> command;
 	if(command == " move" || command == " Move" || command == " MOVE") {
 		//float distance = 0;
 		//std::cin >> distance;
 		//get direction
-		if ((*playerIterator_)->getDirection() == true)
-		(*playerIterator_)->getDynamicObject().setXVelocity(1.0);
+		if ((*playerIterator_)->getDirection() == true)		//true is facing right, false is left
+		(*playerIterator_)->getDynamicObject().setXVelocity(1000.0);
 		else
-		(*playerIterator_)->getDynamicObject().setXVelocity(-1.0);
+		(*playerIterator_)->getDynamicObject().setXVelocity(-1000.0);
 		//(*playerIterator_)->move(5);
 	} else if(command == " flip" || command == " Flip" || command == " FLIP") {
 		if ((*playerIterator_)->getDirection() == true)
@@ -269,12 +269,13 @@ void Game::processCommand() {
 	 else {
 		help();
 	}
-	std::cin.clear();
+	//std::cin.clear();
 }
 
 void Game::help() const {
-	std::cout << "press left or right arrows to move" << std::endl;
-	std::cout << "press space to jump" << std::endl;
+	//std::cout << "press left or right arrows to move" << std::endl;
+	//std::cout << "press space to jump" << std::endl;
+	std::cout << "Press space and enter a command" << std::endl;
 }
 
 void Game::processEvents() {
@@ -292,8 +293,10 @@ void Game::processEvents() {
 			case sf::Event::TextEntered:
 			case sf::Event::KeyPressed:
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					std::cout << "Command recieved... \n";
-					processCommand();
+					std::string newCommand;
+					std::cout << "Enter a command... \n";
+					std::cin >> newCommand;
+					processCommand(newCommand);
 					std::cout << "Command command completed \n";
 				}
 			else {

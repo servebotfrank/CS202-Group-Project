@@ -58,7 +58,7 @@ private:
 	void initSFMLStates();
 	void initOpenGLStates() const;
 
-	void processCommand();
+	void processCommand(std::string & command);
 	void help() const;
 	void processEvents();
 	void update();
