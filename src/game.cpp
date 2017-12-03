@@ -242,16 +242,16 @@ void Game::processCommand(std::string & command) {
 	//move, flip, jump, and stop
 	//std::string command;
 	//std::cin >> command;
-	if(command == " move" || command == " Move" || command == " MOVE") {
+	if(command == "move" || command == "Move" || command == "MOVE") {
 		//float distance = 0;
 		//std::cin >> distance;
 		//get direction
 		if ((*playerIterator_)->getDirection() == true)		//true is facing right, false is left
-		(*playerIterator_)->getDynamicObject().setXVelocity(1000.0);
+		(*playerIterator_)->getDynamicObject().setXVelocity(10.0);
 		else
-		(*playerIterator_)->getDynamicObject().setXVelocity(-1000.0);
+		(*playerIterator_)->getDynamicObject().setXVelocity(-10.0);
 		//(*playerIterator_)->move(5);
-	} else if(command == " flip" || command == " Flip" || command == " FLIP") {
+	} else if(command == "flip" || command == "Flip" || command == "FLIP") {
 		if ((*playerIterator_)->getDirection() == true)
 		(*playerIterator_)->faceLeft();
 		else
