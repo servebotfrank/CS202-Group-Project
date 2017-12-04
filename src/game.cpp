@@ -49,7 +49,7 @@ void Game::loadLevel(const std::string &pathToFile) {
 				loadGameObject(input, GameObjectTypes::ENEMY);
 			}
 			if(word == "elevations") {
-				elevations_->reserve(100);
+				elevations_->reserve(200);
 				while(ss >> word) {
 					//std::cout << word << std::endl;
 					elevations_->push_back(std::stod(word));
@@ -184,7 +184,7 @@ void Game::run() {
 			processEvents();
 		}
         
-        camera_.setPosition(glm::vec3( (*playerIterator_)->getXPosition(),(*playerIterator_) -> getYPosition()+3,10));
+        camera_.setPosition(glm::vec3( (*playerIterator_)->getXPosition(),(*playerIterator_) -> getYPosition()+3,10));  //Locks the camera to the player.
 
 		checkCollisions();
 		update();
