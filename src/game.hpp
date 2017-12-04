@@ -72,6 +72,8 @@ private:
 	void draw() const;
 	void swapFrameBuffers();
 	void frameBufferResize(int32_t width, int32_t height) const;
+
+	void soundManager();
 };
 
 #endif
