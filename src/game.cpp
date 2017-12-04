@@ -397,6 +397,7 @@ void Game::checkCollisions()  {
 					(*secondObjectIterator)->setCollisionTarget(*firstObjectIt);
 					if((*firstObjectIt)->getType() == GameObjectTypes::PLAYER && (*secondObjectIterator)->getType() == GameObjectTypes::ENEMY)
 					{
+						std::cout<<"BAD END"<<std::endl;
 						running_=false;
 					}
 				} else {
