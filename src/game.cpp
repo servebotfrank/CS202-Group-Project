@@ -168,6 +168,8 @@ void Game::initOpenGLStates() const {
 }
 
 void Game::run() {
+	//SoundManager::SoundManager gameMusic = default;
+	//gameMusic.playMusic();
     sf::Music bgMusic;
     if (!bgMusic.openFromFile("../res/sounds/BgMusic.wav"))
     {
@@ -175,6 +177,7 @@ void Game::run() {
     } else
    {
     bgMusic.play();
+    bgMusic.setLoop(true);
 }
 
 	running_ = true;
@@ -251,6 +254,16 @@ void Game::processCommand(std::string & command) {
 	//move, flip, jump, and stop
 	//std::string command;
 	//std::cin >> command;
+	
+	/*
+	sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile("sound.wav"))
+        return -1;
+
+    ...
+
+    return 0;
+	*/
 	if(command == "move" || command == "Move" || command == "MOVE") {
 		//float distance = 0;
 		//std::cin >> distance;
@@ -269,9 +282,21 @@ void Game::processCommand(std::string & command) {
 		}
 	} else if(command == "jump" || command == "Jump" || command == "JUMP") {
 		std::cout << "Jumping \n";
+		sf::SoundBuffer soundBuffer;
+    if (!soundBuffer.loadFromFile("../res/sounds/jumpSound.wav"))
+        std::cout << "Failed to load jumpSound.wav" << std:: endl;
+	else
+		{
+			std::cout << "Loading SOUND FILE" << std::endl;
+			sf::Sound jumpSound;
+			jumpSound.setBuffer(soundBuffer);
+			jumpSound.setVolume(150);
+			jumpSound.play();
+			std::cout << "Played SOUND FILE" << std::endl;
+		}
 		(*playerIterator_)->getDynamicObject().setYVelocity(10.0);
 		std::cout << "JUMPED \n";
-	} else if (command == " stop" || command == " Stop" || command == " STOP")
+	} else if (command == "stop" || command == "Stop" || command == "STOP")
 	{
 		(*playerIterator_)->getDynamicObject().setXVelocity(0.0);
 	}
@@ -397,6 +422,3 @@ void Game::swapFrameBuffers() {
 void Game::frameBufferResize(int32_t width, int32_t height) const {
 	glViewport(0, 0, width, height);
 }
-
-
-
