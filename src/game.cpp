@@ -168,6 +168,15 @@ void Game::initOpenGLStates() const {
 }
 
 void Game::run() {
+    sf::Music bgMusic;
+    if (!bgMusic.openFromFile("../res/sounds/BgMusic.wav"))
+    {
+        std::cout <<"Failed to load background music... \n" << std::endl;
+    } else
+   {
+    bgMusic.play();
+}
+
 	running_ = true;
 	bool runningCommand = false;
 	while(running_) { // main event loop
@@ -275,7 +284,8 @@ void Game::processCommand(std::string & command) {
 void Game::help() const {
 	//std::cout << "press left or right arrows to move" << std::endl;
 	//std::cout << "press space to jump" << std::endl;
-	std::cout << "Press space and enter a command" << std::endl;
+	std::cout << "INVALID COMMAND: Press space and enter a command" << std::endl;
+	std::cout << "Accepted commands Jump, Move, Flip, and Stop" << std::endl;
 }
 
 void Game::processEvents() {
