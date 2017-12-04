@@ -1,4 +1,4 @@
-elevations 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+elevations 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 Player
 mesh ../res/models/playerTemp.obj
 vert ../res/shaders/simpleVertex.vert
@@ -47,4 +47,219 @@ vert ../res/shaders/simpleVertex.vert
 frag ../res/shaders/simpleFragment.frag
 pos 3 1 0
 end
-
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  6 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  7 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  8 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  9 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  10 -1 0
+end
+Enemy
+mesh ../res/models/enemy.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  9 1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  11 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  12 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  13 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  14 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  15 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  16 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  17 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  18 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  19 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  20 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  21 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  22 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  23 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  24 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  25 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  26 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  27 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  28 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  29 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  30 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  31 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  32 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  33 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  34 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  35 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  36 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  37 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  38 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  39 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  40 -1 0
+end
