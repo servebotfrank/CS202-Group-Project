@@ -347,7 +347,7 @@ void Game::processEvents() {
 					(*playerIterator_)->getDynamicObject().setXVelocity(7.0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					(*playerIterator_)->getDynamicObject().setYVelocity(9.0);
+					(*playerIterator_)->getDynamicObject().setYVelocity(10.0);
 				}
                 else if((*playerIterator_)->getDynamicObject().getXVelocity() == 0)
                 {

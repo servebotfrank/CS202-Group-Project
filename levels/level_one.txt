@@ -377,7 +377,53 @@ vert ../res/shaders/simpleVertex.vert
 frag ../res/shaders/simpleFragment.frag
 pos 51 -9 0
 end
-
-
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  52 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  53 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  54 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  55 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  56 -1 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  59 3 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  60 3 0
+end
+Platform
+mesh ../res/models/cube.obj
+vert ../res/shaders/simpleVertex.vert
+frag ../res/shaders/simpleFragment.frag
+pos  61 3 0
+end
 =======
 
