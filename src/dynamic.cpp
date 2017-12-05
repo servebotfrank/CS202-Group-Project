@@ -105,7 +105,15 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 		}
 		else
 		{
-			_velocity[0]=0;
+			if(_velocity[0]>=0)
+			{
+				_velocity[0]=-5;
+			}
+			else
+			{
+				_velocity[0]=5;
+			}
+			
 			_velocity[1]=30;
 			_position=_tempPos;
 		}
