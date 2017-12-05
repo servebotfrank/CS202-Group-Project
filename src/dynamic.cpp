@@ -113,8 +113,8 @@ void Dynamic_object::incrementPosition(bool colliding, std::shared_ptr<GameObjec
 			{
 				_velocity[0]=5;
 			}
+				_velocity[1]=30;
 			
-			_velocity[1]=30;
 			_position=_tempPos;
 		}
 	}
