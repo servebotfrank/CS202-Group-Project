@@ -3,7 +3,7 @@
 
 Dynamic_object::Dynamic_object(const glm::vec2 &position, std::shared_ptr<std::vector<double>> elevations)
 	: _mass{1},												
-	  _position{position},	/*stores the x and y position in an array*/
+	  _position{position},
 	  _velocity(0),
 	  _timingInterval{1.0/30.0},
 	  _elevations(elevations),
@@ -14,7 +14,7 @@ void Dynamic_object::setMass(double mass)
 {
 	_mass = mass;
 }
-void Dynamic_object::setXPosition(double xPosition)		//stores the
+void Dynamic_object::setXPosition(double xPosition)
 {
 	_position[0] = xPosition;
 }
