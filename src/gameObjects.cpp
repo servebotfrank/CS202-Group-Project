@@ -98,6 +98,7 @@ void GameObject::faceLeft() {
 	glm::vec3 translation;
 	glm::vec3 skew;
 	glm::vec4 perspective;
+	// extracts information from the 4x4 modelTransform_ data member
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
@@ -112,6 +113,7 @@ void GameObject::faceRight() {
 	glm::vec3 translation;
 	glm::vec3 skew;
 	glm::vec4 perspective;
+	// extracts information from the 4x4 modelTransform_ data member
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
@@ -126,6 +128,7 @@ bool GameObject::getDirection() {
 	glm::vec3 translation;
 	glm::vec3 skew;
 	glm::vec4 perspective;
+	// extracts information from the 4x4 modelTransform_ data member
 	glm::decompose(modelTransform_, scale, rotation, translation, skew, perspective);
 
 	rotation = glm::conjugate(rotation);
@@ -151,15 +154,24 @@ Platform::Platform(
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
 void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const {
+	// tells opengl to use the shader program stored in the GameObject base class there is also a pointer to it in GameObject factory
 	glUseProgram(getShaderProgram());
 
+	// the viewport transform is built into gl which transforms from
+	// clip space to screen space
+	// transforms the vertices from view space to clip space
 	setUniformMat4("projection", perspective);
+	// transforms the vertices from world space to view space
 	setUniformMat4("view", view);
+	// transforms the vertices from local space to world space
 	setUniformMat4("model", getModelTransform());
 
+	// sets the color to grey/green
 	setUniformVec3("color", glm::vec3(0.1f, 0.2f, 0.2f));
 
+	// tells gl to use this objects mesh's vertex array object
 	glBindVertexArray(getVAO());
+	// tells gl to draw the vertex array object using the corrispoding index buffer
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
 }
 void Platform::updatePhysics() {
@@ -240,34 +252,3 @@ GameObjectTypes Enemy::getType() const {
 	return GameObjectTypes::ENEMY;
 }
 
-Hazard::Hazard(
-	std::shared_ptr<Mesh> mesh,
-	std::shared_ptr<Shader> shader,
-	const glm::vec3 &initialPosition,
-	std::shared_ptr<std::vector<double>> elevations)
-	: GameObject{mesh, shader, initialPosition, elevations} {}
-
-void Hazard::draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const {
-	glUseProgram(getShaderProgram());
-
-	setUniformMat4("projection", perspective);
-	setUniformMat4("view", view);
-	setUniformMat4("model", getModelTransform());
-
-	//sf::Time t;
-	//float red = std::sin(t.seconds());
-	float red = 1.0;
-	setUniformVec3("color", glm::vec3(red, 0.1f, 0.1f));
-
-	glBindVertexArray(getVAO());
-	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
-}
-void Hazard::updatePhysics() {
-
-}
-std::string Hazard::getDescription() const {
-	return "hazard";
-}
-GameObjectTypes Hazard::getType() const {
-	return GameObjectTypes::HAZARD;
-}

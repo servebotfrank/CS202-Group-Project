@@ -68,6 +68,7 @@ unsigned int Shader::compileShader(const std::string &pathToShaderSource, GLenum
 		throw std::runtime_error("Error::fstream() failed to open file" + pathToShaderSource);
 	}
 
+
 	{
 		std::stringstream ss;
 		ss << fs.rdbuf();

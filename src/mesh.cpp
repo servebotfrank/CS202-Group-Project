@@ -6,6 +6,7 @@ Mesh::Mesh(const std::string &pathToObj)
 	loadToGLBuffers();
 }
 Mesh::~Mesh() {
+	// free the graphics memory
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
@@ -35,12 +36,13 @@ void Mesh::loadMesh(const std::string &pathToObj) {
 			);
 			// add normals, texture coordinates, or other per vertex data here
 
-			// add only add unique verticies
+			// if there is no copy of the vertex push_back the vertex
 			if(uniqueVertices.count(vertex) == 0) {
 				uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
 				vertices.push_back(vertex);
 			}
 
+			// regardless of if the vertex was unique push_back an index
 			indices.push_back(uniqueVertices[vertex]);
 		}
 	}

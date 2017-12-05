@@ -21,12 +21,16 @@
 
 class Shader {
 public:
+	// compiles and links the shaders
 	Shader(const std::string &pathToVertSource, const std::string &pathToFragSource);
+	// frees the graphics memory used by the shader
 	~Shader();
 
+	// get the gl handle for the shader
 	unsigned int getShaderProgram() const;
 	void use() const;
 
+	// load various types of uniforms into the shader
 	void setUniformBool(const std::string &name, bool val) const;
 	void setUniformByte(const std::string &name, unsigned char val) const;
 	void setUniformInt16(const std::string &name, int16_t val) const;
@@ -42,15 +46,19 @@ public:
 	void setUniformVec4(const std::string &name, const glm::vec4 &vec) const;
 //	void setUniformTexture(const std::string &name, const) const;
 
+	// used by the GameObjectFactory to check if the shader has already been made
 	std::string getPathToVertexSource() const;
 	std::string getPathToFragSource() const;
 private:
-	std::vector<const char *> getSourceFromFile(const std::string &pathToShaderSource) const;
+	// reads the data from a shaderSource file(.vert of .frag)
+	// returns the handl gl uses for the compiled shader either a vertex or fragmentshader
 	unsigned int compileShader(const std::string &pathToShaderSource, GLenum shaderType) const;
+	// links a vertex and fragment shader
 	void buildProgram(const std::string &pathToVertexSource, const std::string &pathToFragmentSource);
 
 	std::string pathToVertexSource_;
 	std::string pathToFragSource_;
+	// the handle used by gl
 	unsigned int shaderProgram_;
 };
 

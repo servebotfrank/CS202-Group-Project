@@ -27,8 +27,9 @@
 #include "dynamic.hpp"
 #include <cmath>
 
-enum class GameObjectTypes { PLATFORM, PLAYER, ENEMY, HAZARD };
+enum class GameObjectTypes { PLATFORM, PLAYER, ENEMY };
 
+// The abstract GameObject class
 class GameObject {
 public:
 	GameObject (
@@ -44,6 +45,7 @@ public:
 	virtual std::string getDescription() const = 0;
 	virtual GameObjectTypes getType() const = 0;
 
+	// used by the concrete classes to acess private member of this class
 	unsigned int getShaderProgram() const;
 	unsigned int getVAO() const;
 	size_t getVertexCount() const;
@@ -55,22 +57,36 @@ public:
 	void setModelTransform(const glm::mat4 &transform);
 	void translate(const glm::vec3 &difference);
 
+	// get and set the position
 	glm::vec3 getPosition() const;
 	float getXPosition() const;
 	float getYPosition() const;
 	float getZPosition() const;
 	void setPosition(double xPos, double yPos);
 	void setPosition(const glm::vec3 &position);
+
+	// get and set the bounding box width and height
 	float getWidth() const;
 	void setWidth(float width);
 	float getHeight() const;
 	void setHeight(float height);
 
+	// determins the orientation of the model - true if faceing right else false
 	bool getDirection();
+
+	// sets collidingWith_ to collidingWith
 	void setCollisionTarget(const std::shared_ptr<GameObject> &collidingWith);
+
+	// sets _isColliding_ to isColliding
 	void setCollision(bool isColliding);
+
+	// returns a shared_ptr to the last GameObject this object was/is colliding with
 	std::shared_ptr<GameObject> getCollisionTarget() const;
+
+	// returns isColliding_
 	bool getCollisionState() const;
+
+	// flips the GameObject's mesh so that it is faceing the oposite direction
 	void faceLeft();
 	void faceRight();
 
@@ -90,6 +106,9 @@ private:
 	std::shared_ptr<GameObject> collidingWith_;
 };
 
+
+// concrete classes
+
 class Platform : public GameObject {
 public:
 	Platform(
@@ -98,9 +117,13 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
+	// passes gl uniforms to the shaders and calls glDrawElements - a greenish color is used
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
+	// nothing happening here
 	virtual void updatePhysics() override;
+	// returns a string "Platform"
 	virtual std::string getDescription() const override;
+	// returns a enum GameObjectTypes::PLATFORM
 	virtual GameObjectTypes getType() const override;
 private:
 
@@ -114,9 +137,13 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
+	// passes gl uniforms to the shaders and calls glDrawElements - a blue color is used
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
+	// calls physics_objects incrementPosition
 	virtual void updatePhysics() override;
+	// returns a string "Player"
 	virtual std::string getDescription() const override;
+	// returns a enum GameObjectTypes::PLAYER
 	virtual GameObjectTypes getType() const override;
 };
 
@@ -128,24 +155,15 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
+	// passes gl uniforms to the shaders and calls glDrawElements - uses time elapsed and a sin function to make the color pulse red and black
 	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
+	// nothing happening here
 	virtual void updatePhysics() override;
+	// returns a string "Enemy"
 	virtual std::string getDescription() const override;
+	// returns a enum GameObjectTypes::ENEMY
 	virtual GameObjectTypes getType() const override;
 };
 
-class Hazard : public GameObject {
-public:
-	Hazard(
-		std::shared_ptr<Mesh> mesh,
-		std::shared_ptr<Shader> shader,
-		const glm::vec3 &initialPosition,
-		std::shared_ptr<std::vector<double>> elevations);
-
-	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
-	virtual void updatePhysics() override;
-	virtual std::string getDescription() const override;
-	virtual GameObjectTypes getType() const override;
-};
 
 #endif

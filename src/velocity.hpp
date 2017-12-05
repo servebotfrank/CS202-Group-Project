@@ -3,6 +3,9 @@
 
 #include <cmath>
 
+// not used
+// replaced with glm::vec2
+
 class Velocity
 {
 private:

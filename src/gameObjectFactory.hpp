@@ -17,8 +17,11 @@
 
 class GameObjectFactory {
 public:
+	// constructor - initializes vector sizes to 0
 	GameObjectFactory();
 
+	// creates a shared pointer to a GameObject. is used in Game::loadLevel
+	// doesn't load meshes or shaders if they have already been loaded
 	std::shared_ptr<GameObject> make(
 		GameObjectTypes objectType,
 		const std::string &pathToObj,
@@ -27,6 +30,7 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
+	// never used
 	void cleanUp(); // deletes shaders and meshes with only 1 owner - if this is
 					// the owner
 private:

@@ -29,11 +29,13 @@
 struct Vertex {
 	glm::vec3 position;
 
+	// used in loadMesh to make sure only unique vertices are used
 	bool operator==(const Vertex& rhs) const {
 		return position == rhs.position;
 	}
 };
 
+// used in loadMesh to make sure only vertices meshes are used
 namespace std {
 	template<> struct hash<Vertex> {
 		size_t operator()(Vertex const& vertex) const {
@@ -44,17 +46,26 @@ namespace std {
 
 class Mesh {
 public:
+	// calls loadMesh
 	Mesh(const std::string &pathToObj);
+	// frees the graphics memory
 	~Mesh();
 
+	// uses tiny_obj_loader to extract the vertex position and index data
 	void loadMesh(const std::string &pathToObj);
+	// takes the extracted vertex positions and index positions and loads them into
+	// graphic memory
 	void loadToGLBuffers();
 
+	// returns the handle opengl uses to the vertex array object
 	unsigned int getVAO() const;
 	size_t getVertexCount() const;
+	// used in glDrawElements to draw that many vertices
 	size_t getIndexCount() const;
+	// returns a void*(because that is what opengl wants) to the first index
 	const void* getIndicesData() const;
 
+	// used in gameObjectfactory to make see if the path has aleady been used
 	std::string getPathToModel() const;
 private:
 	std::string pathToModel_;
@@ -62,8 +73,11 @@ private:
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
 
+	// vertex array object
 	unsigned int VAO;
+	// vertex buffer object stores the postitions
 	unsigned int VBO;
+	// element buffer object stores the indices
 	unsigned int EBO;
 };
 
