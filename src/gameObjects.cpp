@@ -150,7 +150,7 @@ Platform::Platform(
 	std::shared_ptr<std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
-void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
+void Platform::draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const {
 	glUseProgram(getShaderProgram());
 
 	setUniformMat4("projection", perspective);
@@ -182,7 +182,7 @@ Player::Player(
 	std::shared_ptr<std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
-void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
+void Player::draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const {
 	glUseProgram(getShaderProgram());
 
 	setUniformMat4("projection", perspective);
@@ -217,17 +217,15 @@ Enemy::Enemy(
 	std::shared_ptr<std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
-void Enemy::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
+void Enemy::draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const {
 	glUseProgram(getShaderProgram());
 
 	setUniformMat4("projection", perspective);
 	setUniformMat4("view", view);
 	setUniformMat4("model", getModelTransform());
 
-	//sf::Time t;
-	//float red = std::sin(t.seconds());
-	float red = 1.0;
-	setUniformVec3("color", glm::vec3(red, 0.1f, 0.1f));
+	float red = sin(elapsed.asSeconds()/0.5f)/2.0 + 0.5f;
+	setUniformVec3("color", glm::vec3(red, 0.0f, 0.0f));
 
 	glBindVertexArray(getVAO());
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, 0);
@@ -249,7 +247,7 @@ Hazard::Hazard(
 	std::shared_ptr<std::vector<double>> elevations)
 	: GameObject{mesh, shader, initialPosition, elevations} {}
 
-void Hazard::draw(const glm::mat4 &perspective, const glm::mat4 &view) const {
+void Hazard::draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const {
 	glUseProgram(getShaderProgram());
 
 	setUniformMat4("projection", perspective);

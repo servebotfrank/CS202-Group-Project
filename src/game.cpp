@@ -183,6 +183,9 @@ void Game::run() {
 	running_ = true;
 	bool runningCommand = false;
 	while(running_) { // main event loop
+
+		sf::Time elapsed = clock_.getElapsedTime();
+
 		if(!runningCommand) {
 			processEvents();
 		}
@@ -192,7 +195,7 @@ void Game::run() {
 		checkCollisions();
 		update();
 
-		draw();
+		draw(elapsed);
 		swapFrameBuffers();
 	}
 }
@@ -413,10 +416,10 @@ void Game::checkCollisions()  {
 	}
 }
 
-void Game::draw() const {
+void Game::draw(const sf::Time &elapsed) const {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for(auto objectIterator = gameObjects_.begin(); objectIterator != gameObjects_.end(); ++objectIterator) {
-		(*objectIterator)->draw(getProjection(), camera_.getView());
+		(*objectIterator)->draw(getProjection(), camera_.getView(), elapsed);
 	}
 	glFlush();
 }

@@ -55,6 +55,8 @@ private:
 
 	std::shared_ptr<std::vector<double>> elevations_;
 
+	sf::Clock clock_;
+
 	void initSFMLStates();
 	void initOpenGLStates() const;
 
@@ -69,7 +71,7 @@ private:
 	void loadGameObject(std::ifstream &input, GameObjectTypes type);
 	void saveGameObject();
 
-	void draw() const;
+	void draw(const sf::Time &elapsed) const;
 	void swapFrameBuffers();
 	void frameBufferResize(int32_t width, int32_t height) const;
 

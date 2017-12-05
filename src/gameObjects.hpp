@@ -3,6 +3,8 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <chrono>
+#include <ctime>
 #include <memory>
 #include <string>
 #include <algorithm>
@@ -37,7 +39,7 @@ public:
 
 	virtual ~GameObject() {}
 
-	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const = 0;
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const = 0;
 	virtual void updatePhysics() = 0;
 	virtual std::string getDescription() const = 0;
 	virtual GameObjectTypes getType() const = 0;
@@ -96,7 +98,7 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
-	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
 	virtual void updatePhysics() override;
 	virtual std::string getDescription() const override;
 	virtual GameObjectTypes getType() const override;
@@ -112,7 +114,7 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
-	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
 	virtual void updatePhysics() override;
 	virtual std::string getDescription() const override;
 	virtual GameObjectTypes getType() const override;
@@ -126,7 +128,7 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
-	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
 	virtual void updatePhysics() override;
 	virtual std::string getDescription() const override;
 	virtual GameObjectTypes getType() const override;
@@ -140,7 +142,7 @@ public:
 		const glm::vec3 &initialPosition,
 		std::shared_ptr<std::vector<double>> elevations);
 
-	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view) const override;
+	virtual void draw(const glm::mat4 &perspective, const glm::mat4 &view, const sf::Time &elapsed) const override;
 	virtual void updatePhysics() override;
 	virtual std::string getDescription() const override;
 	virtual GameObjectTypes getType() const override;
