@@ -233,9 +233,9 @@ std::string Game::getDependancyAndAppInfoString() const {
 		versionsString += openGLVersion;
 	return versionsString;
 }
-
-void Game::processCommand(std::string & command) {
 /*
+void Game::processCommand(std::string & command) {
+
 	std::string command;
 	std::cin >> command;
 	if(command == "move") {
@@ -263,7 +263,7 @@ void Game::processCommand(std::string & command) {
     ...
 
     return 0;
-	*/
+	
 	if(command == "move" || command == "Move" || command == "MOVE") {
 		//float distance = 0;
 		//std::cin >> distance;
@@ -305,12 +305,12 @@ void Game::processCommand(std::string & command) {
 	}
 	//std::cin.clear();
 }
-
+*/
 void Game::help() const {
-	//std::cout << "press left or right arrows to move" << std::endl;
-	//std::cout << "press space to jump" << std::endl;
-	std::cout << "INVALID COMMAND: Press space and enter a command" << std::endl;
-	std::cout << "Accepted commands Jump, Move, Flip, and Stop" << std::endl;
+	std::cout << "press left or right arrows to move" << std::endl;
+	std::cout << "press space to jump" << std::endl;
+	//std::cout << "INVALID COMMAND: Press space and enter a command" << std::endl;
+	//std::cout << "Accepted commands Jump, Move, Flip, and Stop" << std::endl;
 }
 
 void Game::processEvents() {
@@ -327,7 +327,7 @@ void Game::processEvents() {
 			case sf::Event::GainedFocus:
 			case sf::Event::TextEntered:
 			case sf::Event::KeyPressed:
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+				/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 					std::string newCommand;
 					std::cout << "Enter a command... \n";
 					std::cin >> newCommand;
@@ -337,22 +337,27 @@ void Game::processEvents() {
 			else {
 					help();
 				}
-				/*
+				*/
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 					(*playerIterator_)->faceLeft();
-					(*playerIterator_)->getDynamicObject().setXVelocity(-1.0);
+					(*playerIterator_)->getDynamicObject().setXVelocity(-7.0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 					(*playerIterator_)->faceRight();
-					(*playerIterator_)->getDynamicObject().setXVelocity(1.0);
+					(*playerIterator_)->getDynamicObject().setXVelocity(7.0);
 				}
 				else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					(*playerIterator_)->getDynamicObject().setYVelocity(1.0);
-				} else {
+					(*playerIterator_)->getDynamicObject().setYVelocity(9.0);
+				}
+                else if((*playerIterator_)->getDynamicObject().getXVelocity() == 0)
+                {
+                    (*playerIterator_)->getDynamicObject().setXVelocity(0);
+                }
+                else {
 					help();
 				}
 			break;
-			*/
+			
 			case sf::Event::KeyReleased:
 			case sf::Event::MouseWheelMoved:
 			case sf::Event::MouseWheelScrolled:
